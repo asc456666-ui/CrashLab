@@ -1,0 +1,19 @@
+{
+  "name": "Crash Lab 碰撞实验场",
+  "short_name": "CrashLab",
+  "description": "给孩子玩的 3D 车辆碰撞模拟，离线可玩",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "fullscreen",
+  "orientation": "landscape",
+  "background_color": "#0b1420",
+  "theme_color": "#ff7ab8",
+  "icons": [
+    {
+      "src": "./icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

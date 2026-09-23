@@ -1,0 +1,194 @@
+{
+  "errors": [],
+  "steps": {
+    "rollSuppression": {
+      "straightMaxTilt": 1.9,
+      "turnMaxTilt": 4.6
+    },
+    "earlySpin": {
+      "samplesInGraceWindow": 3,
+      "maxSpinInWindow": 0
+    },
+    "rampsAllCars": [
+      {
+        "type": "normal",
+        "startZ": -44.9,
+        "endZ": 30.7,
+        "maxY": 7.6,
+        "minSpeedDuring": 6,
+        "passable": true,
+        "flew": true
+      },
+      {
+        "type": "star",
+        "startZ": -45.3,
+        "endZ": 46.7,
+        "maxY": 2.9,
+        "minSpeedDuring": 29,
+        "passable": true,
+        "flew": true
+      },
+      {
+        "type": "monster",
+        "startZ": -45.4,
+        "endZ": 35.7,
+        "maxY": 7.1,
+        "minSpeedDuring": 33,
+        "passable": true,
+        "flew": true
+      },
+      {
+        "type": "bus",
+        "startZ": -45.4,
+        "endZ": 4.9,
+        "maxY": 6.6,
+        "minSpeedDuring": 17,
+        "passable": true,
+        "flew": true
+      },
+      {
+        "type": "sport",
+        "startZ": -45.2,
+        "endZ": 22.9,
+        "maxY": 8.7,
+        "minSpeedDuring": 1,
+        "passable": true,
+        "flew": true
+      },
+      {
+        "type": "tank",
+        "startZ": -45.5,
+        "endZ": 21.9,
+        "maxY": 7.6,
+        "minSpeedDuring": 16,
+        "passable": true,
+        "flew": true
+      }
+    ],
+    "fireButton": {
+      "inTools": false,
+      "inActionPad": true,
+      "visible": true,
+      "x": 18,
+      "y": 332,
+      "width": 58,
+      "steerPadTop": 408,
+      "aboveSteerPad": true,
+      "viewportH": 500
+    },
+    "cannonDestruction": {
+      "staticBefore": 150,
+      "shots": [
+        {
+          "shot": 1,
+          "staticBefore": 150,
+          "staticAfter": 149,
+          "removed": 1
+        },
+        {
+          "shot": 2,
+          "staticBefore": 149,
+          "staticAfter": 149,
+          "removed": 0
+        },
+        {
+          "shot": 3,
+          "staticBefore": 149,
+          "staticAfter": 149,
+          "removed": 0
+        }
+      ],
+      "debrisCount": 6
+    },
+    "cannonVsTree": {
+      "treesNearStart": 4,
+      "treesInMotion": 2
+    },
+    "movers": {
+      "total": 12,
+      "cars": [
+        {
+          "kind": "car",
+          "moved": 7.1,
+          "knocked": false,
+          "meshes": 6
+        },
+        {
+          "kind": "car",
+          "moved": 2.37,
+          "knocked": false,
+          "meshes": 6
+        },
+        {
+          "kind": "car",
+          "moved": 10.13,
+          "knocked": false,
+          "meshes": 6
+        },
+        {
+          "kind": "car",
+          "moved": 12.83,
+          "knocked": false,
+          "meshes": 6
+        },
+        {
+          "kind": "car",
+          "moved": 8.8,
+          "knocked": false,
+          "meshes": 6
+        },
+        {
+          "kind": "car",
+          "moved": 12.26,
+          "knocked": false,
+          "meshes": 6
+        }
+      ],
+      "peds": [
+        {
+          "kind": "ped",
+          "moved": 3.78,
+          "knocked": false,
+          "meshes": 4
+        },
+        {
+          "kind": "ped",
+          "moved": 3.37,
+          "knocked": false,
+          "meshes": 4
+        },
+        {
+          "kind": "ped",
+          "moved": 2.43,
+          "knocked": false,
+          "meshes": 4
+        },
+        {
+          "kind": "ped",
+          "moved": 3.02,
+          "knocked": false,
+          "meshes": 4
+        },
+        {
+          "kind": "ped",
+          "moved": 3.37,
+          "knocked": false,
+          "meshes": 4
+        },
+        {
+          "kind": "ped",
+          "moved": 3.74,
+          "knocked": false,
+          "meshes": 4
+        }
+      ]
+    },
+    "perf": {
+      "totalBodies": 283,
+      "dynamicBodies": 132,
+      "renderCalls": 242,
+      "tris": 7700,
+      "fps": 20
+    }
+  }
+}

@@ -1,0 +1,168 @@
+{
+  "errors": [],
+  "steps": {
+    "onLoad": {
+      "authorized": false,
+      "timedOut": false,
+      "limitMinutes": 30,
+      "usedSeconds": 0,
+      "remaining": 1800,
+      "pinMode": "gate",
+      "paused": true,
+      "gameState": "menu",
+      "pinVisible": true,
+      "pinTitle": "家长验证",
+      "pinErr": "",
+      "limitHighlight": [
+        "30"
+      ]
+    },
+    "wrongPin": {
+      "authorized": false,
+      "timedOut": false,
+      "limitMinutes": 30,
+      "usedSeconds": 0,
+      "remaining": 1800,
+      "pinMode": "gate",
+      "paused": true,
+      "gameState": "menu",
+      "pinVisible": true,
+      "pinTitle": "家长验证",
+      "pinErr": "密码不对，请再试一次",
+      "limitHighlight": [
+        "30"
+      ]
+    },
+    "rightPin": {
+      "authorized": true,
+      "timedOut": false,
+      "limitMinutes": 30,
+      "usedSeconds": 0,
+      "remaining": 1800,
+      "pinMode": null,
+      "paused": false,
+      "gameState": "menu",
+      "pinVisible": false,
+      "pinTitle": "家长验证",
+      "pinErr": "",
+      "limitHighlight": [
+        "30"
+      ]
+    },
+    "afterPlay": {
+      "authorized": true,
+      "timedOut": false,
+      "limitMinutes": 30,
+      "usedSeconds": 1.3,
+      "remaining": 1799,
+      "pinMode": null,
+      "paused": false,
+      "gameState": "playing",
+      "pinVisible": false,
+      "pinTitle": "家长验证",
+      "pinErr": "",
+      "limitHighlight": [
+        "30"
+      ]
+    },
+    "hudHidden": false,
+    "limitPinAsked": {
+      "authorized": true,
+      "timedOut": false,
+      "limitMinutes": 30,
+      "usedSeconds": 1.3,
+      "remaining": 1799,
+      "pinMode": "limit",
+      "paused": true,
+      "gameState": "menu",
+      "pinVisible": true,
+      "pinTitle": "家长验证",
+      "pinErr": "",
+      "limitHighlight": [
+        "30"
+      ]
+    },
+    "limitApplied": {
+      "authorized": true,
+      "timedOut": false,
+      "limitMinutes": 15,
+      "usedSeconds": 1.3,
+      "remaining": 899,
+      "pinMode": null,
+      "paused": false,
+      "gameState": "menu",
+      "pinVisible": false,
+      "pinTitle": "家长验证",
+      "pinErr": "",
+      "limitHighlight": [
+        "15"
+      ]
+    },
+    "timedOut": {
+      "authorized": true,
+      "timedOut": true,
+      "limitMinutes": 15,
+      "usedSeconds": 900,
+      "remaining": 0,
+      "pinMode": "unlock",
+      "paused": true,
+      "gameState": "playing",
+      "pinVisible": true,
+      "pinTitle": "时间到了",
+      "pinErr": "",
+      "limitHighlight": [
+        "15"
+      ]
+    },
+    "afterUnlock": {
+      "authorized": true,
+      "timedOut": false,
+      "limitMinutes": 15,
+      "usedSeconds": 0.2,
+      "remaining": 900,
+      "pinMode": null,
+      "paused": false,
+      "gameState": "playing",
+      "pinVisible": false,
+      "pinTitle": "时间到了",
+      "pinErr": "",
+      "limitHighlight": [
+        "15"
+      ]
+    },
+    "unlimited": {
+      "askedAgain": {
+        "authorized": true,
+        "timedOut": false,
+        "limitMinutes": 15,
+        "usedSeconds": 0.2,
+        "remaining": 900,
+        "pinMode": "limit",
+        "paused": true,
+        "gameState": "menu",
+        "pinVisible": true,
+        "pinTitle": "家长验证",
+        "pinErr": "",
+        "limitHighlight": [
+          "15"
+        ]
+      },
+      "result": {
+        "authorized": true,
+        "timedOut": false,
+        "limitMinutes": 0,
+        "usedSeconds": 0.2,
+        "remaining": "inf",
+        "pinMode": null,
+        "paused": false,
+        "gameState": "menu",
+        "pinVisible": false,
+        "pinTitle": "家长验证",
+        "pinErr": "",
+        "limitHighlight": [
+          "0"
+        ]
+      }
+    }
+  }
+}

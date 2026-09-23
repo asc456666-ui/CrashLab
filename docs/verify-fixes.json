@@ -1,0 +1,419 @@
+{
+  "consoleErrors": [],
+  "pageErrors": [],
+  "straight": [
+    {
+      "t": 0,
+      "tiltDeg": 0,
+      "upY": 1,
+      "x": 0,
+      "z": -80,
+      "speed": 0,
+      "wheelsOff": 0,
+      "wheelHealth": [
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "t": 3,
+      "tiltDeg": 0.9,
+      "upY": 1,
+      "x": 0,
+      "z": -52.5,
+      "speed": 70,
+      "wheelsOff": 0,
+      "wheelHealth": [
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "t": 6,
+      "tiltDeg": 0.9,
+      "upY": 1,
+      "x": 0,
+      "z": 31.7,
+      "speed": 139,
+      "wheelsOff": 0,
+      "wheelHealth": [
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "t": 9,
+      "tiltDeg": 0.3,
+      "upY": 1,
+      "x": 0,
+      "z": 83.9,
+      "speed": 16,
+      "wheelsOff": 0,
+      "wheelHealth": [
+        0.58,
+        0.64,
+        1,
+        1
+      ]
+    },
+    {
+      "t": 12,
+      "tiltDeg": 0.3,
+      "upY": 1,
+      "x": 0,
+      "z": 80.3,
+      "speed": 5,
+      "wheelsOff": 0,
+      "wheelHealth": [
+        0.58,
+        0.64,
+        1,
+        1
+      ]
+    },
+    {
+      "t": 15,
+      "tiltDeg": 0.5,
+      "upY": 1,
+      "x": 0,
+      "z": 88.8,
+      "speed": 5,
+      "wheelsOff": 0,
+      "wheelHealth": [
+        0.58,
+        0.63,
+        1,
+        1
+      ]
+    }
+  ],
+  "cameras": [
+    {
+      "step": "normal-0",
+      "mode": 1,
+      "camX": 0,
+      "camY": 2.6,
+      "camZ": -85.2,
+      "carY": 0.6,
+      "dist": 5.6,
+      "finite": true
+    },
+    {
+      "step": "normal-1",
+      "mode": 2,
+      "camX": 0,
+      "camY": 6.1,
+      "camZ": -93,
+      "carY": 0.6,
+      "dist": 14.1,
+      "finite": true
+    },
+    {
+      "step": "normal-2",
+      "mode": 3,
+      "camX": 0,
+      "camY": 1.2,
+      "camZ": -79.7,
+      "carY": 0.6,
+      "dist": 0.7,
+      "finite": true
+    },
+    {
+      "step": "normal-3",
+      "mode": 0,
+      "camX": 0,
+      "camY": 3.8,
+      "camZ": -88.6,
+      "carY": 0.6,
+      "dist": 9.2,
+      "finite": true
+    },
+    {
+      "step": "normal-4",
+      "mode": 1,
+      "camX": 0,
+      "camY": 2.6,
+      "camZ": -85.2,
+      "carY": 0.6,
+      "dist": 5.6,
+      "finite": true
+    },
+    {
+      "step": "flipped-headcam",
+      "mode": 3,
+      "camX": 0,
+      "camY": 7.1,
+      "camZ": -80,
+      "carY": 0.6,
+      "dist": 6.5,
+      "finite": true
+    },
+    {
+      "step": "flipped-free",
+      "mode": 2,
+      "camX": -0.5,
+      "camY": 6.1,
+      "camZ": -93,
+      "carY": 0.6,
+      "dist": 14.1,
+      "finite": true
+    }
+  ],
+  "vehicles": [
+    {
+      "type": "normal",
+      "fps": 21,
+      "bodies": 134,
+      "calls": 200,
+      "tris": 5506,
+      "tiltDeg": 0.9,
+      "upY": 1,
+      "x": 0,
+      "z": -55.3,
+      "speed": 66,
+      "wheelsOff": 0,
+      "wheelHealth": [
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "type": "star",
+      "fps": 20,
+      "bodies": 134,
+      "calls": 203,
+      "tris": 10566,
+      "tiltDeg": 3.7,
+      "upY": 0.998,
+      "x": 0,
+      "z": -50,
+      "speed": 82,
+      "wheelsOff": 0,
+      "wheelHealth": [
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "type": "monster",
+      "fps": 21,
+      "bodies": 134,
+      "calls": 219,
+      "tris": 7834,
+      "tiltDeg": 1.5,
+      "upY": 1,
+      "x": 0,
+      "z": -52.9,
+      "speed": 76,
+      "wheelsOff": 0,
+      "wheelHealth": [
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "type": "bus",
+      "fps": 21,
+      "bodies": 134,
+      "calls": 200,
+      "tris": 5762,
+      "tiltDeg": 0.4,
+      "upY": 1,
+      "x": 0,
+      "z": -57.8,
+      "speed": 61,
+      "wheelsOff": 0,
+      "wheelHealth": [
+        1,
+        1,
+        1,
+        1
+      ]
+    }
+  ],
+  "wheels": [
+    {
+      "hit": 1,
+      "tiltDeg": 0,
+      "upY": 1,
+      "x": 0,
+      "z": 28.9,
+      "speed": 111,
+      "wheelsOff": 0,
+      "wheelHealth": [
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "hit": 2,
+      "tiltDeg": 0,
+      "upY": 1,
+      "x": 0,
+      "z": 79.2,
+      "speed": 33,
+      "wheelsOff": 0,
+      "wheelHealth": [
+        1,
+        0.64,
+        1,
+        1
+      ]
+    },
+    {
+      "hit": 3,
+      "tiltDeg": 0,
+      "upY": 1,
+      "x": -0.1,
+      "z": 79.5,
+      "speed": 14,
+      "wheelsOff": 0,
+      "wheelHealth": [
+        1,
+        0.29,
+        1,
+        1
+      ]
+    },
+    {
+      "hit": 4,
+      "tiltDeg": 7.4,
+      "upY": 0.992,
+      "x": -0.4,
+      "z": 82.4,
+      "speed": 0,
+      "wheelsOff": 1,
+      "wheelHealth": [
+        1,
+        0,
+        1,
+        1
+      ]
+    },
+    {
+      "hit": 5,
+      "tiltDeg": 40.4,
+      "upY": 0.762,
+      "x": -5.5,
+      "z": 88.9,
+      "speed": 0,
+      "wheelsOff": 1,
+      "wheelHealth": [
+        0.83,
+        0,
+        0.96,
+        1
+      ]
+    },
+    {
+      "hit": 6,
+      "tiltDeg": 14.4,
+      "upY": 0.969,
+      "x": -0.4,
+      "z": 71.4,
+      "speed": 14,
+      "wheelsOff": 1,
+      "wheelHealth": [
+        0.83,
+        0,
+        0.96,
+        1
+      ]
+    },
+    {
+      "hit": 7,
+      "tiltDeg": 7.2,
+      "upY": 0.992,
+      "x": -12.1,
+      "z": 63.9,
+      "speed": 0,
+      "wheelsOff": 1,
+      "wheelHealth": [
+        0.83,
+        0,
+        0.96,
+        1
+      ]
+    },
+    {
+      "hit": 8,
+      "tiltDeg": 7.2,
+      "upY": 0.992,
+      "x": -8.4,
+      "z": 61.7,
+      "speed": 0,
+      "wheelsOff": 1,
+      "wheelHealth": [
+        0.83,
+        0,
+        0.96,
+        1
+      ]
+    }
+  ],
+  "flip": {
+    "before": {
+      "tiltDeg": 161.9,
+      "upY": -0.951,
+      "x": -0.4,
+      "z": -79.1,
+      "speed": 4,
+      "wheelsOff": 0,
+      "wheelHealth": [
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    "after": {
+      "tiltDeg": 0.6,
+      "upY": 1,
+      "x": -0.1,
+      "z": -80,
+      "speed": 2,
+      "wheelsOff": 0,
+      "wheelHealth": [
+        1,
+        1,
+        1,
+        1
+      ]
+    }
+  },
+  "audio": {
+    "ready": true,
+    "volume": 0.8,
+    "masterGain": 0.8,
+    "engineGain": 0.29,
+    "hasLimiter": true,
+    "limiterThreshold": -8
+  },
+  "content": {
+    "spawnPoints": 6,
+    "vehicleTypes": [
+      "normal",
+      "star",
+      "monster",
+      "bus"
+    ],
+    "dynamicBodies": 78,
+    "pins": 10,
+    "bricks": 36,
+    "totalBodies": 134
+  }
+}

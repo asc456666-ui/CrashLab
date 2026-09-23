@@ -1,0 +1,71 @@
+# 依赖
+node_modules/
+.pnpm-store/
+
+# 构建产物
+dist/
+dist-ssr/
+*.local
+
+# 日志
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# 编辑器与系统
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.DS_Store
+Thumbs.db
+*.swp
+
+# ---------- Android ----------
+# 构建缓存与产物
+android/build/
+android/app/build/
+android/.gradle/
+android/capacitor-cordova-android-plugins/build/
+android/app/release/
+android/app/debug/
+*.apk
+*.aab
+*.ap_
+*.dex
+*.class
+
+# 本地 SDK / JDK 路径，每台机器不同，绝不能提交
+android/local.properties
+local.properties
+
+# 签名密钥与口令，泄露即等于应用被他人冒名发布
+*.jks
+*.keystore
+*.key
+keystore.properties
+signing.properties
+
+# Gradle 与 IDE
+.gradle/
+captures/
+.cxx/
+
+# ---------- 密码、令牌、环境变量 ----------
+.env
+.env.*
+!.env.example
+*.pem
+*.p12
+secrets.json
+credentials.json
+
+# ---------- 本项目调试临时文件 ----------
+test/_*.cjs
+_verify/
+_*.txt
+_*.log
+
+# 注意：Crash Lab 的运行时不加载任何外部密钥，
+# 家长控制密码是写在源码里的本地开关，不是机密，不适用本条规则。

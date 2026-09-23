@@ -1,0 +1,146 @@
+{
+  "errors": [],
+  "steps": {
+    "scene": {
+      "trees": 16,
+      "buildings": 20,
+      "cityCars": 6,
+      "peds": 8,
+      "garageParts": 10,
+      "spawnPoints": 12,
+      "totalBodies": 280,
+      "dynamicBodies": 128,
+      "renderCalls": 404,
+      "tris": 9920,
+      "fps": 20
+    },
+    "cars": [
+      {
+        "type": "normal",
+        "x": 0,
+        "y": 0.6,
+        "z": -220,
+        "speed": 106,
+        "airSpin": 0,
+        "airRoll": 0,
+        "airTime": 0,
+        "cannonCooldown": 0,
+        "hasCannon": false,
+        "hasFlame": false,
+        "mass": 1100,
+        "fireButtonVisible": false
+      },
+      {
+        "type": "sport",
+        "x": 0,
+        "y": 0.6,
+        "z": -216.1,
+        "speed": 122,
+        "airSpin": 0,
+        "airRoll": 0,
+        "airTime": 0,
+        "cannonCooldown": 0,
+        "hasCannon": false,
+        "hasFlame": true,
+        "mass": 900,
+        "fireButtonVisible": false
+      },
+      {
+        "type": "tank",
+        "x": 0,
+        "y": 0.7,
+        "z": -230.4,
+        "speed": 75,
+        "airSpin": 0,
+        "airRoll": 0,
+        "airTime": 0,
+        "cannonCooldown": 0,
+        "hasCannon": true,
+        "hasFlame": false,
+        "mass": 2400,
+        "fireButtonVisible": true
+      }
+    ],
+    "exhaustFlame": {
+      "whileThrottle": 10,
+      "afterRelease": 2
+    },
+    "tankShot": {
+      "before": [
+        {
+          "x": -47.5,
+          "y": 4.06,
+          "z": 198
+        },
+        {
+          "x": -47.51,
+          "y": 12.06,
+          "z": 198.01
+        },
+        {
+          "x": -40.5,
+          "y": 4.06,
+          "z": 198
+        },
+        {
+          "x": -40.5,
+          "y": 12.06,
+          "z": 198.01
+        }
+      ],
+      "after": [
+        {
+          "x": -47.5,
+          "y": 4.07,
+          "z": 198.01
+        },
+        {
+          "x": -47.5,
+          "y": 12.18,
+          "z": 198.17
+        },
+        {
+          "x": -40.49,
+          "y": 5.34,
+          "z": 200.88
+        },
+        {
+          "x": -40.51,
+          "y": 14.68,
+          "z": 203.68
+        }
+      ],
+      "score": 200
+    },
+    "jumpHeightNormal": 7.9,
+    "rollTrick": {
+      "maxRoll": 11.6,
+      "score": 39
+    },
+    "destroyNotice": {
+      "bannerOn": true,
+      "bannerPulse": true,
+      "bannerText": "车辆已报废\n请按重置键",
+      "msgOn": true,
+      "msgText": "按重置键修好车辆继续玩",
+      "exploded": true
+    },
+    "destroyNoticeLater": {
+      "bannerOn": true,
+      "msgOn": true
+    },
+    "sceneAfter": {
+      "trees": 16,
+      "buildings": 20,
+      "cityCars": 6,
+      "peds": 8,
+      "garageParts": 10,
+      "spawnPoints": 12,
+      "totalBodies": 288,
+      "dynamicBodies": 136,
+      "renderCalls": 258,
+      "tris": 5548,
+      "fps": 20
+    }
+  }
+}

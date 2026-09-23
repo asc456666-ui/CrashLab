@@ -1,0 +1,78 @@
+=== THEORY along local x=0 (world x=-120) ===
+z=-50 h=-0.06
+z=-40 h=0.2
+z=-30 h=0.41
+z=-20 h=0.52
+z=-10 h=0.52
+z=0 h=0.43
+z=10 h=0.29
+z=20 h=0.14
+z=30 h=0.01
+z=40 h=-0.06
+z=50 h=-0.08
+z=60 h=-0.06
+z=70 h=0
+z=80 h=0.05
+z=90 h=0.08
+z=100 h=0.09
+z=110 h=0.06
+z=120 h=0.03
+z=130 h=0
+z=140 h=-0.01
+z=150 h=0.02
+z=160 h=0.08
+z=170 h=0.1
+=== PHYSICS PROFILE along world x=-120 ===
+z=-50 wheel=0.06 bodyApprox=-1.09 grounded=4
+z=-38 wheel=0.37 bodyApprox=-0.52 grounded=4
+z=-26 wheel=0.58 bodyApprox=-0.31 grounded=4
+z=-14 wheel=0.68 bodyApprox=-0.18 grounded=4
+z=-2 wheel=0.61 bodyApprox=-0.24 grounded=4
+z=10 wheel=0.42 bodyApprox=-0.41 grounded=3
+z=22 wheel=0.23 bodyApprox=-0.6 grounded=2
+z=34 wheel=0.01 bodyApprox=-0.81 grounded=3
+z=46 wheel=-0.05 bodyApprox=-0.92 grounded=4
+z=58 wheel=-0.05 bodyApprox=-0.94 grounded=4
+z=70 wheel=0.02 bodyApprox=-0.87 grounded=4
+z=82 wheel=0.1 bodyApprox=-0.78 grounded=4
+z=94 wheel=0.15 bodyApprox=-0.73 grounded=4
+z=106 wheel=0.14 bodyApprox=-0.75 grounded=4
+z=118 wheel=0.11 bodyApprox=-0.79 grounded=4
+z=130 wheel=0.05 bodyApprox=-0.85 grounded=4
+z=142 wheel=0.04 bodyApprox=-0.86 grounded=4
+z=154 wheel=0.12 bodyApprox=-0.78 grounded=4
+z=166 wheel=0.17 bodyApprox=-0.73 grounded=4
+=== PHYSICS PROFILE along world z=60 ===
+x=-180 wheel=0 bodyApprox=-0.87 grounded=4
+x=-168 wheel=-0.27 bodyApprox=-1.13 grounded=4
+x=-156 wheel=-0.6 bodyApprox=-1.45 grounded=2
+x=-144 wheel=-0.79 bodyApprox=-1.58 grounded=2
+x=-132 wheel=-0.5 bodyApprox=-1.55 grounded=4
+x=-120 wheel=-0.02 bodyApprox=-0.94 grounded=4
+x=-108 wheel=0.61 bodyApprox=-0.25 grounded=4
+x=-96 wheel=null bodyApprox=0.36 grounded=0
+x=-84 wheel=1.25 bodyApprox=0.29 grounded=4
+x=-72 wheel=0.97 bodyApprox=0.14 grounded=4
+x=-60 wheel=0.4 bodyApprox=-0.45 grounded=3
+=== CONTINUITY ===
+z-step drops (10m apart): 0.31 0.21 0.1 -0.07 -0.19 -0.19 -0.22 -0.06 0 0.07 0.08 0.05 -0.01 -0.03 -0.06 -0.01 0.08 0.05
+x-step drops (10m apart): -0.27 -0.33 -0.19 0.29 0.48 0.63 -0.25 0.89 -0.28 -0.57
+z profile range: -0.05 .. 0.68
+x profile range: -0.79 .. 1.25
+max absolute step (z): 0.31
+max absolute step (x): 0.89
+=== DRIVING THROUGH FOREST ===
+z=-49.7 y=0.63 speed=9 tilt=5
+z=-48.3 y=0.62 speed=24 tilt=6
+z=-45.7 y=0.71 speed=39 tilt=3
+z=-41.9 y=0.8 speed=53 tilt=3
+z=-36.8 y=0.88 speed=67 tilt=5
+z=-30.7 y=1.1 speed=79 tilt=3
+z=-23.5 y=1.23 speed=90 tilt=5
+z=-15.7 y=1.41 speed=98 tilt=5
+z=-5.6 y=1.25 speed=106 tilt=3
+z=0.4 y=1.14 speed=68 tilt=6
+z=6.4 y=1 speed=77 tilt=6
+z=14.7 y=0.91 speed=91 tilt=2
+z=24.3 y=0.76 speed=107 tilt=2
+z=33.5 y=0.68 speed=116 tilt=2

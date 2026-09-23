@@ -1,0 +1,887 @@
+{
+  "errors": [],
+  "damageRate": [
+    {
+      "hit": 1,
+      "x": 0,
+      "y": 0.6,
+      "z": -162.8,
+      "speed": 112,
+      "health": 1,
+      "damageShown": 0,
+      "exploded": false,
+      "wrecked": false,
+      "burning": false,
+      "partsLeft": 8,
+      "inLoop": false,
+      "camDist": 10.66,
+      "camToLoopCenter": 365.24
+    },
+    {
+      "hit": 2,
+      "x": 0,
+      "y": 0.6,
+      "z": -59.5,
+      "speed": 111,
+      "health": 1,
+      "damageShown": 0,
+      "exploded": false,
+      "wrecked": false,
+      "burning": false,
+      "partsLeft": 8,
+      "inLoop": false,
+      "camDist": 10.64,
+      "camToLoopCenter": 262.84
+    },
+    {
+      "hit": 3,
+      "x": 0,
+      "y": 0.6,
+      "z": 51.5,
+      "speed": 111,
+      "health": 1,
+      "damageShown": 0,
+      "exploded": false,
+      "wrecked": false,
+      "burning": false,
+      "partsLeft": 8,
+      "inLoop": false,
+      "camDist": 10.63,
+      "camToLoopCenter": 154.16
+    },
+    {
+      "hit": 4,
+      "x": 0,
+      "y": 0.6,
+      "z": 146.1,
+      "speed": 22,
+      "health": 0.7776,
+      "damageShown": 22,
+      "exploded": false,
+      "wrecked": false,
+      "burning": false,
+      "partsLeft": 7,
+      "inLoop": false,
+      "camDist": 9,
+      "camToLoopCenter": 66.54
+    }
+  ],
+  "explode": {
+    "atShown100": {
+      "x": 0,
+      "y": 0.6,
+      "z": 46.1,
+      "speed": 0,
+      "health": 0.0054,
+      "damageShown": 99,
+      "exploded": true,
+      "wrecked": true,
+      "burning": true,
+      "partsLeft": 0,
+      "inLoop": false,
+      "camDist": 9.17,
+      "camToLoopCenter": 141.33
+    },
+    "afterReset0": {
+      "x": 0,
+      "y": 0.6,
+      "z": 46.2,
+      "speed": 0,
+      "health": 0.6,
+      "damageShown": 40,
+      "exploded": true,
+      "wrecked": true,
+      "burning": true,
+      "partsLeft": 0,
+      "inLoop": false,
+      "camDist": 9.17,
+      "camToLoopCenter": 141.26
+    },
+    "hit1": {
+      "x": 0,
+      "y": 0.6,
+      "z": -170.4,
+      "speed": 117,
+      "health": 1,
+      "damageShown": 0,
+      "exploded": false,
+      "wrecked": false,
+      "burning": false,
+      "partsLeft": 8,
+      "inLoop": false,
+      "camDist": 10.71,
+      "camToLoopCenter": 372.83
+    },
+    "hit2": {
+      "x": 0,
+      "y": 0.6,
+      "z": -85.3,
+      "speed": 116,
+      "health": 1,
+      "damageShown": 0,
+      "exploded": false,
+      "wrecked": false,
+      "burning": false,
+      "partsLeft": 8,
+      "inLoop": false,
+      "camDist": 10.71,
+      "camToLoopCenter": 288.45
+    },
+    "hit3": {
+      "x": 0,
+      "y": 0.6,
+      "z": 8.8,
+      "speed": 116,
+      "health": 1,
+      "damageShown": 0,
+      "exploded": false,
+      "wrecked": false,
+      "burning": false,
+      "partsLeft": 8,
+      "inLoop": false,
+      "camDist": 10.57,
+      "camToLoopCenter": 195.57
+    },
+    "hit4": {
+      "x": 0,
+      "y": 0.6,
+      "z": 104,
+      "speed": 115,
+      "health": 1,
+      "damageShown": 0,
+      "exploded": false,
+      "wrecked": false,
+      "burning": false,
+      "partsLeft": 8,
+      "inLoop": false,
+      "camDist": 10.74,
+      "camToLoopCenter": 104.53
+    },
+    "hit5": {
+      "x": 2.8,
+      "y": 0.6,
+      "z": 141.3,
+      "speed": 16,
+      "health": 0.7893,
+      "damageShown": 21,
+      "exploded": false,
+      "wrecked": false,
+      "burning": false,
+      "partsLeft": 7,
+      "inLoop": false,
+      "camDist": 8.97,
+      "camToLoopCenter": 66.45
+    },
+    "hit6": {
+      "x": -0.8,
+      "y": 0.6,
+      "z": 139.4,
+      "speed": 11,
+      "health": 0.6893,
+      "damageShown": 31,
+      "exploded": false,
+      "wrecked": false,
+      "burning": false,
+      "partsLeft": 7,
+      "inLoop": false,
+      "camDist": 9.04,
+      "camToLoopCenter": 72.44
+    },
+    "hit7": {
+      "x": -1.2,
+      "y": 0.6,
+      "z": 129.2,
+      "speed": 27,
+      "health": 0.5893,
+      "damageShown": 41,
+      "exploded": false,
+      "wrecked": false,
+      "burning": false,
+      "partsLeft": 7,
+      "inLoop": false,
+      "camDist": 8.83,
+      "camToLoopCenter": 80.96
+    },
+    "hit8": {
+      "x": -0.5,
+      "y": 0.5,
+      "z": 142,
+      "speed": 0,
+      "health": 0.4893,
+      "damageShown": 51,
+      "exploded": false,
+      "wrecked": false,
+      "burning": false,
+      "partsLeft": 7,
+      "inLoop": false,
+      "camDist": 9.17,
+      "camToLoopCenter": 70.1
+    },
+    "hit9": {
+      "x": -4.7,
+      "y": 0.5,
+      "z": 145.2,
+      "speed": 0,
+      "health": 0.4594,
+      "damageShown": 54,
+      "exploded": false,
+      "wrecked": false,
+      "burning": false,
+      "partsLeft": 7,
+      "inLoop": false,
+      "camDist": 9.17,
+      "camToLoopCenter": 72.14
+    },
+    "hit10": {
+      "x": -0.5,
+      "y": 0.5,
+      "z": 146.8,
+      "speed": 0,
+      "health": 0.4112,
+      "damageShown": 59,
+      "exploded": false,
+      "wrecked": false,
+      "burning": false,
+      "partsLeft": 7,
+      "inLoop": false,
+      "camDist": 9.17,
+      "camToLoopCenter": 68.35
+    },
+    "hit11": {
+      "x": 1.3,
+      "y": 0.4,
+      "z": 145.9,
+      "speed": 0,
+      "health": 0.3341,
+      "damageShown": 67,
+      "exploded": false,
+      "wrecked": false,
+      "burning": false,
+      "partsLeft": 7,
+      "inLoop": false,
+      "camDist": 9.17,
+      "camToLoopCenter": 67.37
+    },
+    "hit12": {
+      "x": 1.6,
+      "y": 0.4,
+      "z": 146.3,
+      "speed": 0,
+      "health": 0.3104,
+      "damageShown": 69,
+      "exploded": false,
+      "wrecked": false,
+      "burning": true,
+      "partsLeft": 7,
+      "inLoop": false,
+      "camDist": 9.17,
+      "camToLoopCenter": 66.47
+    },
+    "hit13": {
+      "x": 2,
+      "y": 0.4,
+      "z": 146.4,
+      "speed": 0,
+      "health": 0.2348,
+      "damageShown": 77,
+      "exploded": false,
+      "wrecked": false,
+      "burning": true,
+      "partsLeft": 7,
+      "inLoop": false,
+      "camDist": 9.17,
+      "camToLoopCenter": 65.24
+    },
+    "hit14": {
+      "x": 2.1,
+      "y": 0.4,
+      "z": 146.7,
+      "speed": 0,
+      "health": 0.1542,
+      "damageShown": 85,
+      "exploded": false,
+      "wrecked": false,
+      "burning": true,
+      "partsLeft": 7,
+      "inLoop": false,
+      "camDist": 9.17,
+      "camToLoopCenter": 65
+    },
+    "explodedAtHit": -1,
+    "afterReset": {
+      "x": 0,
+      "y": 0.6,
+      "z": -250,
+      "speed": 0,
+      "health": 1,
+      "damageShown": 0,
+      "exploded": false,
+      "wrecked": false,
+      "burning": false,
+      "partsLeft": 8,
+      "inLoop": false,
+      "camDist": 9.18,
+      "camToLoopCenter": 450.46
+    }
+  },
+  "ramps": [
+    {
+      "jumpRamps": [
+        {
+          "y": -0.01,
+          "z": -30,
+          "hy": 1.1,
+          "hz": 4
+        },
+        {
+          "y": 0.96,
+          "z": -6,
+          "hy": 1.1,
+          "hz": 5.5
+        },
+        {
+          "y": 2.44,
+          "z": 24,
+          "hy": 1.1,
+          "hz": 7.5
+        },
+        {
+          "y": 0.05,
+          "z": 34,
+          "hy": 0.05,
+          "hz": 13
+        }
+      ],
+      "waveRamps": [
+        {
+          "y": 0.02,
+          "z": -206.5,
+          "hz": 51
+        },
+        {
+          "y": 0.07,
+          "z": -244,
+          "hz": 5
+        },
+        {
+          "y": 0.43,
+          "z": -229,
+          "hz": 5
+        },
+        {
+          "y": 0.78,
+          "z": -214,
+          "hz": 5
+        },
+        {
+          "y": 0.25,
+          "z": -199,
+          "hz": 5
+        },
+        {
+          "y": 0.61,
+          "z": -184,
+          "hz": 5
+        },
+        {
+          "y": 0.16,
+          "z": -169,
+          "hz": 5
+        }
+      ]
+    },
+    {
+      "type": "normal",
+      "endZ": 8,
+      "endSpeed": 0,
+      "maxY": 5.9,
+      "airborneSamples": 14,
+      "passed": true,
+      "flew": true
+    },
+    {
+      "type": "star",
+      "endZ": 43.4,
+      "endSpeed": 48,
+      "maxY": 7.2,
+      "airborneSamples": 11,
+      "passed": true,
+      "flew": true
+    },
+    {
+      "type": "bus",
+      "endZ": 2.4,
+      "endSpeed": 27,
+      "maxY": 5.6,
+      "airborneSamples": 11,
+      "passed": true,
+      "flew": true
+    },
+    {
+      "type": "wave",
+      "maxY": 5.6,
+      "samples": [
+        {
+          "z": -251.9,
+          "y": 0.6,
+          "speed": 6
+        },
+        {
+          "z": -251.4,
+          "y": 0.6,
+          "speed": 13
+        },
+        {
+          "z": -250.8,
+          "y": 0.6,
+          "speed": 19
+        },
+        {
+          "z": -249.8,
+          "y": 0.6,
+          "speed": 25
+        },
+        {
+          "z": -248.7,
+          "y": 0.8,
+          "speed": 31
+        },
+        {
+          "z": -247.3,
+          "y": 1,
+          "speed": 36
+        },
+        {
+          "z": -245.7,
+          "y": 1.4,
+          "speed": 41
+        },
+        {
+          "z": -243.9,
+          "y": 1.8,
+          "speed": 46
+        },
+        {
+          "z": -241.9,
+          "y": 2.3,
+          "speed": 51
+        },
+        {
+          "z": -239.7,
+          "y": 2.7,
+          "speed": 55
+        },
+        {
+          "z": -237.4,
+          "y": 3.2,
+          "speed": 56
+        },
+        {
+          "z": -235.1,
+          "y": 3.4,
+          "speed": 55
+        },
+        {
+          "z": -232.8,
+          "y": 3.5,
+          "speed": 55
+        },
+        {
+          "z": -230,
+          "y": 3.6,
+          "speed": 45
+        },
+        {
+          "z": -228.2,
+          "y": 4.1,
+          "speed": 44
+        },
+        {
+          "z": -225.9,
+          "y": 4.4,
+          "speed": 42
+        },
+        {
+          "z": -223.5,
+          "y": 4.4,
+          "speed": 42
+        },
+        {
+          "z": -221.2,
+          "y": 3.9,
+          "speed": 44
+        },
+        {
+          "z": -219.5,
+          "y": 3.3,
+          "speed": 45
+        },
+        {
+          "z": -217.6,
+          "y": 2.9,
+          "speed": 26
+        },
+        {
+          "z": -216.8,
+          "y": 3.5,
+          "speed": 23
+        },
+        {
+          "z": -216,
+          "y": 3.9,
+          "speed": 21
+        },
+        {
+          "z": -215.2,
+          "y": 4.1,
+          "speed": 19
+        },
+        {
+          "z": -213.9,
+          "y": 4.4,
+          "speed": 19
+        },
+        {
+          "z": -212.9,
+          "y": 4.9,
+          "speed": 15
+        },
+        {
+          "z": -212.1,
+          "y": 4.8,
+          "speed": 15
+        },
+        {
+          "z": -211.5,
+          "y": 4.6,
+          "speed": 17
+        },
+        {
+          "z": -211.2,
+          "y": 4.9,
+          "speed": 12
+        },
+        {
+          "z": -210.6,
+          "y": 5.4,
+          "speed": 15
+        },
+        {
+          "z": -209.9,
+          "y": 5.6,
+          "speed": 19
+        },
+        {
+          "z": -208.7,
+          "y": 5.4,
+          "speed": 25
+        },
+        {
+          "z": -207.7,
+          "y": 4.9,
+          "speed": 27
+        },
+        {
+          "z": -206.1,
+          "y": 3.6,
+          "speed": 33
+        },
+        {
+          "z": -204.4,
+          "y": 2.2,
+          "speed": 30
+        },
+        {
+          "z": -202.8,
+          "y": 2.1,
+          "speed": 30
+        },
+        {
+          "z": -201.5,
+          "y": 1.8,
+          "speed": 31
+        },
+        {
+          "z": -201.4,
+          "y": 2.2,
+          "speed": 8
+        },
+        {
+          "z": -201.2,
+          "y": 2.6,
+          "speed": 11
+        },
+        {
+          "z": -200.8,
+          "y": 2.9,
+          "speed": 13
+        },
+        {
+          "z": -200.1,
+          "y": 3.4,
+          "speed": 17
+        }
+      ]
+    }
+  ],
+  "loop": [
+    {
+      "x": 40,
+      "y": 1.5,
+      "z": -240.3,
+      "speed": 69,
+      "health": 0.9745,
+      "damageShown": 3,
+      "exploded": false,
+      "wrecked": false,
+      "burning": false,
+      "partsLeft": 8,
+      "inLoop": false,
+      "camDist": 8.41,
+      "camToLoopCenter": 438.14
+    },
+    {
+      "x": 40,
+      "y": 4.6,
+      "z": -236.3,
+      "speed": 57,
+      "health": 0.9745,
+      "damageShown": 3,
+      "exploded": false,
+      "wrecked": false,
+      "burning": false,
+      "partsLeft": 8,
+      "inLoop": false,
+      "camDist": 7.07,
+      "camToLoopCenter": 421.09
+    },
+    {
+      "x": 40.1,
+      "y": 7.5,
+      "z": -230.6,
+      "speed": 50,
+      "health": 0.9745,
+      "damageShown": 3,
+      "exploded": false,
+      "wrecked": false,
+      "burning": false,
+      "partsLeft": 8,
+      "inLoop": false,
+      "camDist": 7.48,
+      "camToLoopCenter": 414.27
+    },
+    {
+      "x": 40.1,
+      "y": 8.4,
+      "z": -226.5,
+      "speed": 47,
+      "health": 0.9745,
+      "damageShown": 3,
+      "exploded": false,
+      "wrecked": false,
+      "burning": false,
+      "partsLeft": 8,
+      "inLoop": false,
+      "camDist": 9.44,
+      "camToLoopCenter": 425.32
+    },
+    {
+      "x": 40.1,
+      "y": 8.4,
+      "z": -222.6,
+      "speed": 47,
+      "health": 0.9745,
+      "damageShown": 3,
+      "exploded": false,
+      "wrecked": false,
+      "burning": false,
+      "partsLeft": 8,
+      "inLoop": false,
+      "camDist": 8.04,
+      "camToLoopCenter": 418.75
+    },
+    {
+      "x": 40.1,
+      "y": 7.2,
+      "z": -218.1,
+      "speed": 49,
+      "health": 0.9745,
+      "damageShown": 3,
+      "exploded": false,
+      "wrecked": false,
+      "burning": false,
+      "partsLeft": 8,
+      "inLoop": false,
+      "camDist": 8.42,
+      "camToLoopCenter": 400.47
+    },
+    {
+      "x": 40.1,
+      "y": 4.3,
+      "z": -212.8,
+      "speed": 56,
+      "health": 0.9745,
+      "damageShown": 3,
+      "exploded": false,
+      "wrecked": false,
+      "burning": false,
+      "partsLeft": 8,
+      "inLoop": false,
+      "camDist": 7.8,
+      "camToLoopCenter": 407.75
+    },
+    {
+      "x": 40.2,
+      "y": 1.4,
+      "z": -209.1,
+      "speed": 14,
+      "health": 0.9124,
+      "damageShown": 9,
+      "exploded": false,
+      "wrecked": false,
+      "burning": false,
+      "partsLeft": 7,
+      "inLoop": false,
+      "camDist": 9.77,
+      "camToLoopCenter": 408.21
+    },
+    {
+      "x": 40.2,
+      "y": 2,
+      "z": -208.2,
+      "speed": 16,
+      "health": 0.9124,
+      "damageShown": 9,
+      "exploded": false,
+      "wrecked": false,
+      "burning": false,
+      "partsLeft": 7,
+      "inLoop": false,
+      "camDist": 9.37,
+      "camToLoopCenter": 407.09
+    },
+    {
+      "x": 40.2,
+      "y": 2.2,
+      "z": -206.9,
+      "speed": 22,
+      "health": 0.9124,
+      "damageShown": 9,
+      "exploded": false,
+      "wrecked": false,
+      "burning": false,
+      "partsLeft": 7,
+      "inLoop": false,
+      "camDist": 7.13,
+      "camToLoopCenter": 399.01
+    },
+    {
+      "x": 40.2,
+      "y": 1.9,
+      "z": -205.1,
+      "speed": 23,
+      "health": 0.9124,
+      "damageShown": 9,
+      "exploded": false,
+      "wrecked": false,
+      "burning": false,
+      "partsLeft": 7,
+      "inLoop": true,
+      "camDist": 4.38,
+      "camToLoopCenter": 390.92
+    },
+    {
+      "x": 40.2,
+      "y": 2.2,
+      "z": -203.5,
+      "speed": 16,
+      "health": 0.8804,
+      "damageShown": 12,
+      "exploded": false,
+      "wrecked": false,
+      "burning": false,
+      "partsLeft": 6,
+      "inLoop": true,
+      "camDist": 4.66,
+      "camToLoopCenter": 392.82
+    },
+    {
+      "x": 40.2,
+      "y": 2.2,
+      "z": -202.2,
+      "speed": 17,
+      "health": 0.8804,
+      "damageShown": 12,
+      "exploded": false,
+      "wrecked": false,
+      "burning": false,
+      "partsLeft": 6,
+      "inLoop": true,
+      "camDist": 4.65,
+      "camToLoopCenter": 396.15
+    },
+    {
+      "x": 40.3,
+      "y": 1.6,
+      "z": -201.1,
+      "speed": 21,
+      "health": 0.8804,
+      "damageShown": 12,
+      "exploded": false,
+      "wrecked": false,
+      "burning": false,
+      "partsLeft": 6,
+      "inLoop": true,
+      "camDist": 4.69,
+      "camToLoopCenter": 395.18
+    },
+    {
+      "x": 40.3,
+      "y": 1.6,
+      "z": -200.8,
+      "speed": 10,
+      "health": 0.8436,
+      "damageShown": 16,
+      "exploded": false,
+      "wrecked": false,
+      "burning": false,
+      "partsLeft": 6,
+      "inLoop": true,
+      "camDist": 4.6,
+      "camToLoopCenter": 393.41
+    },
+    {
+      "x": 40.4,
+      "y": 2,
+      "z": -200.2,
+      "speed": 14,
+      "health": 0.8436,
+      "damageShown": 16,
+      "exploded": false,
+      "wrecked": false,
+      "burning": false,
+      "partsLeft": 6,
+      "inLoop": true,
+      "camDist": 4.58,
+      "camToLoopCenter": 391.33
+    }
+  ],
+  "banner": {
+    "atShown100": {
+      "on": true,
+      "text": "车辆已报废\n请按重置键"
+    },
+    "afterReset0": {
+      "on": true,
+      "text": "车辆已报废\n请按重置键"
+    },
+    "afterExplode": {
+      "on": false,
+      "text": "车辆已报废\n请按重置键"
+    },
+    "afterReset": {
+      "on": false,
+      "text": "车辆已报废\n请按重置键"
+    }
+  }
+}
