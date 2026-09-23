@@ -224,9 +224,12 @@ CrashLabWeb
 node test/verify-star-car.cjs     # 星星小车生成与撞击
 node test/verify-round8.cjs       # 翻滚抑制、炮击目标、行人车流
 node test/offline-check.cjs       # 断网完整流程验收
+node test/release-check.cjs       # 对发布 APK 内的资源做离线验收
 ```
 
 测试脚本自带静态服务 `test/static-server.cjs`，会自己起在 127.0.0.1，跑完自动关闭，不需要另外开服务器。
+
+`release-check.cjs` 比较特别：它先把签名包里的资源解到临时目录，加载完了再切断网络，用来确认发布出去的那一版真的不依赖外部域名。改打包配置之后建议跑一次。
 
 ---
 

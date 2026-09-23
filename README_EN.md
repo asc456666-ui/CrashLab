@@ -224,9 +224,12 @@ The project is verified with Playwright headless runs, and raw results from ever
 node test/verify-star-car.cjs     # Star car spawn and crash
 node test/verify-round8.cjs       # Rollover suppression, cannon targets, traffic and pedestrians
 node test/offline-check.cjs       # Full offline acceptance run
+node test/release-check.cjs       # Offline check against the resources inside the released APK
 ```
 
 The scripts include their own static server, `test/static-server.cjs`, which starts on 127.0.0.1 and shuts down when the run ends. No separate server is needed.
+
+`release-check.cjs` is a little different: it unpacks the resources from the signed APK into a temp directory, loads them, and only then cuts the network, to confirm that the exact build being published really has no external dependency. Run it after changing any packaging config.
 
 ---
 
