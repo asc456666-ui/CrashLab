@@ -2,6 +2,8 @@
 
 English | [简体中文](README.md)
 
+Repository: https://github.com/asc456666-ui/CrashLab
+
 A 3D vehicle crash simulator built for kids. The deliverable is an Android APK that runs completely offline once installed: no browser, no LAN, no server, and no network permission requested at all.
 
 The feel is inspired by crash-sandbox games, but the underlying model is rigid-body physics plus visual mesh deformation, not true soft-body physics. The goal is smooth performance on an ordinary mid-range phone, with obvious feedback on every impact and a control scheme simple enough for a child.
@@ -27,7 +29,13 @@ The feel is inspired by crash-sandbox games, but the underlying model is rigid-b
 
 ### Play the Android build
 
-Download CrashLab-release.apk from the Releases page, copy it to your phone, tap it in a file manager and allow installation from unknown sources. It works with the network off.
+Download CrashLab-release.apk from https://github.com/asc456666-ui/CrashLab/releases, copy it to your phone, tap it in a file manager and allow installation from unknown sources. It works with the network off.
+
+Current release is v1.0.0, 3424332 bytes, SHA256 `43bb77ecf6adcd6160b27cac847941db50a3fcd72f519fc602ced84ef3c4d`. Verify after downloading:
+
+```powershell
+Get-FileHash CrashLab-release.apk -Algorithm SHA256
+```
 
 WeChat renames the apk extension to apk.1 during transfer; rename it back if installation fails.
 

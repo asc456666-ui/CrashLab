@@ -2,6 +2,8 @@
 
 [English](README_EN.md) | 简体中文
 
+仓库地址：https://github.com/asc456666-ui/CrashLab
+
 一个给孩子玩的 3D 车辆碰撞模拟。最终交付是 Android APK：安装后完全离线运行，不依赖浏览器、不依赖局域网、不依赖任何服务器，也完全不申请网络权限。
 
 物理效果参考撞车类沙盒游戏的思路，但底层是刚体物理加视觉变形，不是真正的软体物理。目标是在普通中端手机上流畅运行，撞起来反馈明显，操作门槛低到孩子上手就能玩。
@@ -27,7 +29,13 @@
 
 ### 玩安卓版
 
-到 Releases 页面下载 CrashLab-release.apk，传到手机，文件管理器点开安装，允许安装未知来源即可。装完断网也能玩。
+到 https://github.com/asc456666-ui/CrashLab/releases 下载 CrashLab-release.apk，传到手机，文件管理器点开安装，允许安装未知来源即可。装完断网也能玩。
+
+当前版本 v1.0.0，文件大小 3424332 字节，SHA256 为 43bb77ecf6adcd6160b27cac847941db50a3fcd72f519fc602ced84ef3c4d。下载后可用下面的命令校验：
+
+```powershell
+Get-FileHash CrashLab-release.apk -Algorithm SHA256
+```
 
 微信传输会把 apk 后缀改成 apk.1，装不上时把后缀改回 apk。
 
