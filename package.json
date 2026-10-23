@@ -1,9 +1,10 @@
 {
   "name": "crashlab-web",
   "private": true,
-  "version": "0.1.0",
+  "version": "2.0.0",
   "type": "module",
   "scripts": {
+    "test": "node --test test/regressions.test.mjs test/open-world.test.mjs test/drift-handling.test.mjs",
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview --port 4173"

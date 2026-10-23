@@ -1,4 +1,5 @@
 import { Settings } from '../core/Settings.js';
+import { WorldMap } from './WorldMap.js';
 
 const $ = (id) => document.getElementById(id);
 
@@ -6,6 +7,10 @@ const $ = (id) => document.getElementById(id);
  * DOM 界面层。菜单、车辆选择、设置、HUD 都在这里，按钮做得大，方便孩子直接点。
  */
 export class UI {
+  initWorld(world, handlers) {
+    this.worldMap = new WorldMap(world, handlers);
+  }
+
   constructor(handlers) {
     this.handlers = handlers;
     this.panels = {
@@ -175,6 +180,7 @@ export class UI {
   }
 
   showPanel(name) {
+    this.currentPanel = name;
     for (const key in this.panels) {
       this.panels[key].classList.toggle('hidden', key !== name);
     }
@@ -190,16 +196,26 @@ export class UI {
   }
 
   hideAllPanels() {
+    this.currentPanel = null;
     for (const key in this.panels) this.panels[key].classList.add('hidden');
   }
 
   setPlaying(on) {
+    if (!on) {
+      this.setAirHint(false);
+      document.getElementById('flightFX').classList.remove('on');
+    }
     this.hud.classList.toggle('hidden', !on);
     this.controls.classList.toggle('hidden', !on);
     this.tools.classList.toggle('hidden', !on);
   }
 
   updateHUD(vehicle, timeScale, fps, score = 0, best = 0, remainingSeconds = Infinity) {
+    const flying = vehicle.flight?.airborne && vehicle.airTime > 0.25;
+    const drifting = !flying && vehicle.drift?.amount > 0.3;
+    document.getElementById('flightFX').classList.toggle('on', !!flying || drifting);
+    document.getElementById('flightFX').classList.toggle('drifting', drifting);
+    document.getElementById('flightStatus').textContent = flying ? `${vehicle.flight.stunt?.name || '自由飞跃'} · 腾空 ${vehicle.airTime.toFixed(1)}s · 高度 ${Math.round(vehicle.flight.peak)}m` : drifting ? `侧滑漂移 · ${Math.round(vehicle.drift.distance)}m` : '';
     const speed = Math.round(vehicle.speedKmh);
     this.speedEl.textContent = speed;
 

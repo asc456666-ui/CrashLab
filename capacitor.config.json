@@ -1,6 +1,6 @@
 {
-  "appId": "com.crashlab.game",
-  "appName": "Crash Lab",
+  "appId": "com.crashlab.game2",
+  "appName": "碰撞实验场二代",
   "webDir": "dist",
   "bundledWebRuntime": false,
   "loggingBehavior": "none",

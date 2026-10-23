@@ -2,6 +2,7 @@ import * as THREE from 'three';
 import * as CANNON from 'cannon-es';
 import { Materials, skyTexture } from './Materials.js';
 import { createBox, createCylinder } from '../physics/Helpers.js';
+import { OpenWorld } from './OpenWorld.js';
 
 /**
  * Crash Test Arena 碰撞试验场。
@@ -53,7 +54,10 @@ export class Arena {
     this.buildGarage();
     this.buildForest();
     this.buildCity();
+    this.openWorld = new OpenWorld(this.ctx, this);
+    this.ctx.openWorld = this.openWorld;
     this.recordDynamicSpawns();
+    this.staticSpawns = Array.from(this.ctx.staticMeshes, ([body, mesh]) => ({ body, mesh, parent: mesh.parent }));
   }
 
   buildEnvironment() {
@@ -96,7 +100,7 @@ export class Arena {
     // 地面必须挖空，否则山林的洼地会低于地面，车轮射线先打到地面，
     // 车等于在平地上跑，起伏完全感觉不到，还会撞到地块侧面。
     // 填这个洞的方式是把地面拆成四块围成一个框。
-    const F = 300;
+    const F = 600;
     const hx0 = -185;
     const hx1 = -55;
     const hz0 = -60;
@@ -214,13 +218,14 @@ export class Arena {
     const halfThick = 1.1;
     const centerY = gap - halfThick * cos + (length / 2) * sin;
 
-    createBox(this.ctx, {
+    const ramp = createBox(this.ctx, {
       size: [width, halfThick * 2, length],
       pos: [cx, centerY, cz],
       rot: [-angle, 0, 0],
       mass: 0,
       material: material || Materials.hazard()
     });
+    ramp.body.launchRamp = true;
 
     return { topY: length * sin + gap, centerY };
   }
@@ -507,7 +512,7 @@ export class Arena {
 
     createBox(this.ctx, {
       size: [w, 0.4, d],
-      pos: [cx, -0.2, cz],
+      pos: [cx, -0.23, cz],
       mass: 0,
       material: Materials.concrete(),
       castShadow: false
@@ -944,7 +949,7 @@ export class Arena {
    * 被撞飞或撞倒就停一会儿再回原位。
    */
   updateMovers(dt) {
-    if (!this.movers) return;
+    if (!this.movers || this.openWorld?.population.adopted) return;
 
     const now = performance.now();
 
@@ -1074,6 +1079,14 @@ export class Arena {
   }
 
   resetObstacles() {
+    for (const { body, mesh, parent } of this.staticSpawns) {
+      if (this.ctx.staticMeshes.has(body)) continue;
+      this.ctx.world.addBody(body);
+      body.updateAABB();
+      parent.add(mesh);
+      this.ctx.staticMeshes.set(body, mesh);
+    }
+
     for (const s of this.dynamicSpawns) {
       s.body.position.copy(s.pos);
       s.body.quaternion.copy(s.quat);
@@ -1084,6 +1097,11 @@ export class Arena {
       if (s.body.type === CANNON.Body.DYNAMIC) s.body.wakeUp();
     }
 
+    this.resetHeavyBlock();
+    this.openWorld?.reset();
+  }
+
+  resetHeavyBlock() {
     if (this.heavyBlock) {
       const b = this.heavyBlock.body;
       b.position.set(0, 17, 46);

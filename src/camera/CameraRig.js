@@ -66,7 +66,20 @@ export class CameraRig {
 
     let rate = 6;
 
-    if (vehicle.inLoop && this.mode !== 2) {
+    const flying = vehicle.flight?.airborne && vehicle.airTime > 0.25 && !vehicle.inLoop;
+    const targetFov = flying ? 72 + Math.min(6, vehicle.speedKmh / 50) : 58 + (vehicle.drift?.amount || 0) * 3;
+    this.camera.fov += (targetFov - this.camera.fov) * Math.min(1, dt * 3);
+    this.camera.updateProjectionMatrix();
+    if (flying && this.mode !== 2) {
+      const velocity = vehicle.body.velocity;
+      const heading = Math.hypot(velocity.x, velocity.z) > 2 ? Math.atan2(velocity.x, velocity.z) : this.camYaw;
+      this.camYaw = heading;
+      const orbit = vehicle.flight.stunt ? Math.sin(Math.PI * Math.min(1, vehicle.flight.stunt.elapsed / vehicle.flight.stunt.duration)) * 0.55 : 0;
+      this._desired.set(p.x - Math.sin(heading + orbit) * 13, p.y + 4.5, p.z - Math.cos(heading + orbit) * 13);
+      this._desiredLook.set(p.x + Math.sin(heading) * 3, p.y + 0.5, p.z + Math.cos(heading) * 3);
+      const k = this._snap(dt, 5);
+      this.position.lerp(this._desired, k); this.lookAt.lerp(this._desiredLook, k);
+    } else if (vehicle.inLoop && this.mode !== 2) {
       // 三百六十度圆环内部：换成跟着车身一起翻滚的贴身机位。
       // 用世界坐标定位的话相机会落在圆环壁外面，画面被整个挡住。
       // 这里用车身局部偏移，相机永远贴在车后上方，看得见前方赛道。

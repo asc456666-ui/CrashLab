@@ -23,6 +23,9 @@ export class Game {
     this.canvas = canvas;
     this.state = 'menu';
     this.paused = false;
+    this.backgroundPaused = false;
+    this.mapOpen = false;
+    this.settingsAuthorized = false;
     this.spawnIndex = Settings.data.spawn;
     this.score = 0;
     this.bestScore = Settings.data.bestScore | 0;
@@ -72,12 +75,19 @@ export class Game {
     this.pinMode = null;
     this.pendingLimit = this.parental.limitMinutes;
     this.ui.syncLimitButtons(this.parental.limitMinutes);
+    this.ui.initWorld(this.arena.openWorld, {
+      onClose: () => this.closeWorldMap(),
+      onTeleport: index => this.teleport(index),
+      onInteract: () => this.interact(),
+      onResetBuildings: () => this.resetBuildings()
+    });
 
     this.ctx.ui = this.ui;
     this.ctx.onImpact = (impact, otherBody) => this.registerImpact(impact, otherBody);
     this.ctx.onTrick = (label, score) => this.registerTrick(label, score);
     this.ctx.onExplode = () => this.onVehicleExploded();
     this.ctx.onCannonHit = (point, body) => this.registerCannonHit(body);
+    this.ctx.onPortal = destination => this.travelPortal(destination);
 
     this.bindDrag();
     window.addEventListener('resize', () => this.resize());
@@ -108,7 +118,7 @@ export class Game {
 
   initScene() {
     this.scene = new THREE.Scene();
-    this.camera = new THREE.PerspectiveCamera(58, 16 / 9, 0.1, 900);
+    this.camera = new THREE.PerspectiveCamera(58, 16 / 9, 0.3, 1600);
 
     this.ctx = {
       scene: this.scene,
@@ -162,6 +172,57 @@ export class Game {
     this.input.on('fire', () => this.fireCannon());
     this.input.on('heavy', () => this.arena.dropHeavyBlock());
     this.input.on('menu', () => this.onNav('menu'));
+    this.input.on('map', () => this.openWorldMap());
+    this.input.on('interact', () => this.interact());
+    this.input.on('stunt', () => this.vehicle?.flight.requestStunt());
+  }
+
+  openWorldMap() {
+    if (this.state !== 'playing' || this.paused || !this.vehicle) return;
+    this.mapOpen = true;
+    this.setPaused(true);
+    this.ui.worldMap.show(this.vehicle);
+  }
+
+  closeWorldMap() {
+    if (!this.mapOpen) return;
+    this.mapOpen = false;
+    this.ui.worldMap.hide();
+    this.setPaused(false);
+  }
+
+  teleport(index) {
+    if (!this.mapOpen || this.pinMode || !this.parental.authorized || this.parental.timedOut) return;
+    if (this.arena.openWorld.frontier.isIsland(this.vehicle.body.position) || this.arena.openWorld.regions.find(r => r.spawnIndex === index)?.portalOnly) return;
+    this.setSpawn(index);
+    this.input.release();
+    this.closeWorldMap();
+    this.ui.showMessage('已到达探索区域，随时打开地图前往别处');
+  }
+
+  travelPortal(destination) {
+    if (this.paused || this.state !== 'playing' || !this.parental.authorized) return;
+    const index = destination === 'garage' ? 9 : this.arena.openWorld.regions.find(r => r.id === destination).spawnIndex;
+    this.setSpawn(index);
+    this.input.release();
+    const name = this.arena.openWorld.regions.find(r => r.id === destination)?.name;
+    this.ui.showMessage(destination === 'garage' ? '已离开小岛，返回车库' : `欢迎来到${name}！离岛光门位于道路另一端`, 6000);
+  }
+
+  interact() {
+    if (this.state !== 'playing' || this.paused || !this.vehicle) return;
+    this.ui.showMessage(this.arena.openWorld.interact(this.vehicle), 4000);
+  }
+
+  resetBuildings() {
+    if (this.state !== 'playing' || this.pinMode || !this.parental.authorized || this.parental.timedOut || this.backgroundPaused) return;
+    // 只清场景碎块；不改变当前车辆的车损及脱落零件。
+    for (let i = this.vehicle.debris.items.length - 1; i >= 0; i--) {
+      if (!this.vehicle.debris.items[i].home.parent) this.vehicle.debris.removeAt(i);
+    }
+    this.arena.resetObstacles();
+    this.ui.showMessage('建筑与场地道具已复原');
+    this.closeWorldMap();
   }
 
   bindDrag() {
@@ -186,6 +247,7 @@ export class Game {
   }
 
   onNav(nav) {
+    if (nav !== 'settings') this.settingsAuthorized = false;
     switch (nav) {
       case 'play':
         this.startGame();
@@ -194,24 +256,27 @@ export class Game {
         this.ui.showPanel('garage');
         break;
       case 'settings':
-        this.ui.showPanel('settings');
+        if (this.pinMode) break;
+        this.onNav('menu');
+        this.pinMode = 'settings';
+        this.setPaused(true);
+        this.ui.showPinPad({ title: '设置验证', hint: '每次进入设置都需要家长密码', onSubmit: pin => this.onPinSubmit(pin) });
         break;
       case 'menu':
+        this.closeWorldMap();
         this.state = 'menu';
         this.ui.showPanel('menu');
         this.ui.setPlaying(false);
         this.ui.hideBanner();
         this.input.enabled = false;
+        this.input.release();
         this.audio.stopEngine();
         Settings.set('bestScore', this.bestScore);
         this.score = 0;
         break;
       case 'quit':
-        this.state = 'menu';
-        this.ui.showPanel('menu');
-        this.ui.setPlaying(false);
-        this.audio.stopEngine();
-        window.close();
+        this.onNav('menu');
+        void Platform.quit(this);
         break;
       default:
         break;
@@ -226,6 +291,7 @@ export class Game {
   }
 
   startGame() {
+    if (this.pinMode || this.backgroundPaused) return;
     // 没通过家长密码就进不去
     if (!this.parental.authorized || this.parental.timedOut) {
       this.requestGate();
@@ -246,7 +312,7 @@ export class Game {
       this.vehicle = null;
     }
 
-    this.arena.resetObstacles();
+    this.arena.resetHeavyBlock();
     this.fx.clear();
 
     this.score = 0;
@@ -362,6 +428,7 @@ export class Game {
   }
 
   onPinSubmit(pin) {
+    if (!this.pinMode || this.backgroundPaused) return;
     if (!this.parental.verify(pin)) {
       this.ui.pinError('密码不对，请再试一次');
       this.ui.resetPinInput();
@@ -372,6 +439,25 @@ export class Game {
     this.pinMode = null;
     this.ui.hidePinPad();
 
+    if (mode === 'settings') {
+      this.parental.authorized = true;
+      this.settingsAuthorized = true;
+      this.ui.showPanel('settings');
+      this.setPaused(false);
+      return;
+    }
+
+    if (mode === 'resume') {
+      this.parental.authorized = true;
+      if (this.resumeSettings) {
+        this.settingsAuthorized = true;
+        this.ui.showPanel('settings');
+      }
+      this.resumeSettings = false;
+      this.setPaused(false);
+      return;
+    }
+
     if (mode === 'gate') {
       this.parental.authorize();
       this.setPaused(false);
@@ -380,8 +466,9 @@ export class Game {
     }
 
     if (mode === 'unlock') {
+      this.parental.authorized = true;
       this.parental.release();
-      this.ui.setPlaying(true);
+      this.ui.setPlaying(this.state === 'playing');
       this.setPaused(false);
       this.ui.showMessage('已解锁，计时重新开始');
       return;
@@ -457,9 +544,10 @@ export class Game {
    * 切后台时暂停：停掉物理推进与音频，回前台再恢复，避免后台耗电和回来瞬间炸帧。
    */
   setPaused(on) {
-    const next = !!on;
+    const next = !!on || this.backgroundPaused || this.mapOpen || !!this.pinMode || !!this.parental?.timedOut;
     if (this.paused === next) return;
     this.paused = next;
+    this.input.enabled = !next && this.state === 'playing';
 
     if (this.paused) {
       this.audio.suspend();
@@ -468,6 +556,22 @@ export class Game {
       this.audio.resume();
       this.lastTime = performance.now();
     }
+  }
+
+  setBackgroundPaused(on) {
+    const wasBackground = this.backgroundPaused;
+    this.backgroundPaused = !!on;
+    if (on && !wasBackground && this.parental) {
+      this.resumeSettings = this.ui.currentPanel === 'settings' || this.pinMode === 'settings';
+      this.parental.authorized = false;
+      this.settingsAuthorized = false;
+      if (this.resumeSettings) this.ui.hideAllPanels();
+    }
+    if (!on && wasBackground && this.parental) {
+      this.pinMode = this.parental.timedOut ? 'unlock' : 'resume';
+      this.ui.showPinPad({ title: '返回游戏验证', hint: '从后台返回，请家长重新输入密码', onSubmit: pin => this.onPinSubmit(pin) });
+    }
+    this.setPaused(false);
   }
 
   setQuality(level) {
@@ -497,8 +601,12 @@ export class Game {
     if (!sun || !this.vehicle) return;
 
     const p = this.vehicle.group.position;
-    sun.position.set(p.x + 55, p.y + 85, p.z + 38);
-    sun.target.position.set(p.x, p.y, p.z);
+    const texel = 110 / (sun.shadow.mapSize.width || 1024);
+    const x = Math.round(p.x / texel) * texel;
+    const y = Math.round(p.y / texel) * texel;
+    const z = Math.round(p.z / texel) * texel;
+    sun.position.set(x + 55, y + 85, z + 38);
+    sun.target.position.set(x, y, z);
     sun.target.updateMatrixWorld();
   }
 
@@ -513,7 +621,8 @@ export class Game {
   loop(now) {
     requestAnimationFrame((t) => this.loop(t));
 
-    const raw = Math.min(0.05, (now - this.lastTime) / 1000);
+    const elapsed = Math.max(0, (now - this.lastTime) / 1000);
+    const raw = Math.min(0.05, elapsed);
     this.lastTime = now;
 
     this.fpsTimer += raw;
@@ -526,7 +635,7 @@ export class Game {
 
     // 家长设的时长按真实时间累计，慢动作不缩短
     if (this.state === 'playing' && !this.paused) {
-      this.parental.tick(raw);
+      this.parental.tick(elapsed);
       if (this.parental.timedOut && !this.pinMode) this.onTimeUp();
     }
 
@@ -535,9 +644,11 @@ export class Game {
 
       this.input.update();
       this.vehicle.update(dt, this.input.state);
+      this.arena.openWorld.update(dt, this.vehicle);
       this.world.step(1 / 60, dt, 4);
-      this.vehicle.syncVisual();
+      this.vehicle.syncVisual(true);
       syncDynamics(this.ctx.dynamics);
+      this.arena.openWorld.population.afterPhysics(dt);
       this.arena.updateMovers(dt);
 
       this.fx.update(dt);
@@ -548,6 +659,7 @@ export class Game {
       this.audio.updateEngine(this.vehicle.speedKmh, this.input.state.throttle, this.vehicle.engineHealth > 0.01);
       this.ui.updateHUD(this.vehicle, this.time.scale, this.fpsValue, this.score, this.bestScore, this.parental.remainingSeconds);
       this.ui.setAirHint(this.vehicle.airTime > 0.35);
+      this.ui.worldMap.update(this.vehicle, now);
       this.checkFlipHint(raw);
     }
 

@@ -7,7 +7,8 @@ export class InputManager {
     this.touch = { throttle: 0, brake: 0, steer: 0, handbrake: false };
     this.handlers = {};
     this.keys = new Set();
-    this.enabled = true;
+    this.enabled = false;
+    this.lastThrottleTap = -Infinity;
 
     this.bindKeyboard();
     this.bindButtons();
@@ -18,6 +19,7 @@ export class InputManager {
   }
 
   emit(name) {
+    if (!this.enabled) return;
     const fn = this.handlers[name];
     if (fn) fn();
   }
@@ -25,7 +27,10 @@ export class InputManager {
   bindKeyboard() {
     window.addEventListener('keydown', (e) => {
       const k = e.key.toLowerCase();
+      if (!this.enabled) return;
       this.keys.add(k);
+      if (e.repeat) return;
+      if (k === 'w' || k === 'arrowup') this.tapThrottle();
 
       if (k === 'c') this.emit('camera');
       else if (k === 't') this.emit('slowmo');
@@ -34,6 +39,8 @@ export class InputManager {
       else if (k === 'x') this.emit('fire');
       else if (k === 'h') this.emit('heavy');
       else if (k === 'escape') this.emit('menu');
+      else if (k === 'm') this.emit('map');
+      else if (k === 'e') this.emit('interact');
     });
 
     window.addEventListener('keyup', (e) => this.keys.delete(e.key.toLowerCase()));
@@ -43,7 +50,7 @@ export class InputManager {
   bindButtons() {
     document.querySelectorAll('[data-hold]').forEach((el) => {
       const action = el.getAttribute('data-hold');
-      const down = (e) => { e.preventDefault(); this.setHold(action, true); };
+      const down = (e) => { e.preventDefault(); if (this.enabled) this.setHold(action, true); };
       const up = (e) => { e.preventDefault(); this.setHold(action, false); };
 
       el.addEventListener('pointerdown', down);
@@ -61,6 +68,7 @@ export class InputManager {
   }
 
   setHold(action, value) {
+    if (action === 'throttle' && value && !this.touch.throttle) this.tapThrottle();
     switch (action) {
       case 'throttle': this.touch.throttle = value ? 1 : 0; break;
       case 'brake': this.touch.brake = value ? 1 : 0; break;
@@ -71,8 +79,17 @@ export class InputManager {
     }
   }
 
+  tapThrottle(now = performance.now()) {
+    if (!this.enabled) return;
+    if (now - this.lastThrottleTap < 320) {
+      this.emit('stunt');
+      this.lastThrottleTap = -Infinity;
+    } else this.lastThrottleTap = now;
+  }
+
   /** 切后台或回主菜单时把按键状态清干净，防止回来时油门还踩着 */
   release() {
+    this.lastThrottleTap = -Infinity;
     this.keys.clear();
     this.touch.throttle = 0;
     this.touch.brake = 0;

@@ -4,6 +4,9 @@ import { CAR_BUILDERS } from './CarBuilder.js';
 import { SPECS } from './CarSpecs.js';
 import { MeshDeformer } from './MeshDeformer.js';
 import { DebrisField } from './Debris.js';
+import { isSharedMaterial } from '../world/Materials.js';
+import { FlightController } from './FlightController.js';
+import { DriftController } from './DriftController.js';
 
 const _v = new THREE.Vector3();
 const _v2 = new THREE.Vector3();
@@ -13,11 +16,6 @@ const _force = new CANNON.Vec3();
 const _cv = new CANNON.Vec3();
 const _cvOut = new CANNON.Vec3();
 
-// 空中特技的目标角速度，单位弧度每秒
-const AIR_PITCH_RATE = 5.4;
-const AIR_ROLL_RATE = 5.8;
-// 判定完成一圈特技需要的累计转角，给一点宽容，不用严格满 360 度
-const TRICK_FULL_TURN = 5.4;
 // 接地时主动稳定器的强度，越大越不容易翻
 const STABILITY_DAMP = 3.2;
 // 车损越高车漆越焦黑
@@ -85,6 +83,8 @@ export class Vehicle {
 
     this.buildPhysics();
     this.bindCollision();
+    this.flight = new FlightController(this);
+    this.drift = new DriftController(this);
   }
 
   buildPhysics() {
@@ -318,6 +318,7 @@ export class Vehicle {
 
     const part = this.liveParts[best];
     this.liveParts.splice(best, 1);
+    const localQuat = part.mesh.quaternion.clone();
 
     _v.copy(part.localPos);
     const worldPos = this.group.localToWorld(_v.clone());
@@ -330,7 +331,7 @@ export class Vehicle {
 
     this.debris.spawn(part.mesh, part.size, worldPos, _q, vel, null, 10);
     const idx = this.debris.items.length - 1;
-    this.debris.setHome(idx, this.group, part.localPos, part.mesh.quaternion.clone(), part.mesh.scale.clone());
+    this.debris.setHome(idx, this.group, part.localPos, localQuat, part.mesh.scale.clone());
   }
 
   breakGlass() {
@@ -344,6 +345,15 @@ export class Vehicle {
     const s = this.spec;
     const body = this.body;
     const vel = body.velocity;
+    const surface = this.ctx.openWorld?.surfaceAt(body.position);
+    for (let i = 0; i < 4; i++) {
+      if (this.wheelDetached[i]) continue;
+      this.vehicle.wheelInfos[i].frictionSlip = s.frictionSlip * (0.4 + 0.6 * this.wheelHealth[i]) * (surface?.grip ?? 1);
+    }
+    if (surface) {
+      const drag = Math.exp(-surface.drag * dt);
+      vel.x *= drag; vel.z *= drag;
+    }
     const speedKmh = vel.length() * 3.6;
 
     // 车头方向（局部 +Z）
@@ -408,19 +418,8 @@ export class Vehicle {
 
     if (grounded > 0) this.applyActiveStability(dt);
 
-    if (grounded === 0) {
-      this.airTime += dt;
-      // 刚离地那一下不响应特技，否则车头立刻一栽，看着像刚上坡就摔
-      if (this.canStartTrick()) this.updateAirTricks(dt, input);
-    } else if (this.airTime > 0.35) {
-      // 真的腾空过才结算特技，压过减速带那种小颠簸不算
-      this.settleTricks();
-      this.airTime = 0;
-    } else {
-      this.airTime = 0;
-      this.airSpin = 0;
-      this.airRoll = 0;
-    }
+    this.drift.update(dt, input, grounded);
+    this.flight.update(dt, grounded);
 
     this.checkHardLanding(grounded);
     this.updateDamageVisual(dt);
@@ -451,17 +450,6 @@ export class Vehicle {
 
     this.wasAirborne = grounded === 0;
     this.lastVy = vy;
-  }
-
-  /**
-   * 特技启动门槛。
-   * 刚离开坡面就翻滚的话，车头会直接栽进地面，看起来就是刚上坡就摔了。
-   * 这里要求腾空够久，并且已经过了上升最快的阶段，
-   * 也就是飞到接近最高点时才允许做动作，符合往上飞再翻的手感。
-   */
-  canStartTrick() {
-    if (this.airTime < 0.42) return false;
-    return this.body.velocity.y < 4.2;
   }
 
   /**
@@ -522,85 +510,6 @@ export class Vehicle {
         w.z += rz * strength;
       }
     }
-  }
-
-  /**
-   * 空中特技。油门做前空翻，刹车做后空翻，左右方向键做侧翻。
-   * 目标角速度沿着车身局部轴合成后转成世界角速度，再平滑逼近，
-   * 这样无论车在空中是什么姿态，翻的方向都跟玩家看到的车身一致。
-   */
-  updateAirTricks(dt, input) {
-    const pitch = input.throttle - input.brake;
-    const roll = -input.steer;
-
-    const targetPitch = pitch * AIR_PITCH_RATE;
-    const targetRoll = roll * AIR_ROLL_RATE;
-
-    // 车身局部横轴在世界中的方向
-    _cv.set(1, 0, 0);
-    this.body.quaternion.vmult(_cv, _cvOut);
-    const axX = _cvOut.x;
-    const axY = _cvOut.y;
-    const axZ = _cvOut.z;
-
-    // 车身局部纵轴在世界中的方向
-    _cv.set(0, 0, 1);
-    this.body.quaternion.vmult(_cv, _cvOut);
-    const azX = _cvOut.x;
-    const azY = _cvOut.y;
-    const azZ = _cvOut.z;
-
-    const wx = axX * targetPitch + azX * targetRoll;
-    const wy = axY * targetPitch + azY * targetRoll;
-    const wz = axZ * targetPitch + azZ * targetRoll;
-
-    const k = Math.min(1, dt * 5);
-    const w = this.body.angularVelocity;
-    w.x += (wx - w.x) * k;
-    w.y += (wy - w.y) * k;
-    w.z += (wz - w.z) * k;
-
-    // 带符号累计，这样结算时能分辨出是前空翻还是后空翻、往哪边滚
-    this.airSpin += targetPitch * dt;
-    this.airRoll += targetRoll * dt;
-  }
-
-  /**
-   * 落地结算。按腾空期间累计转过的整圈数与方向判定动作名称。
-   * 同时有俯仰和滚转就算复合动作，油门加方向键一起按就能做出来。
-   */
-  settleTricks() {
-    const spin = this.airSpin;
-    const roll = this.airRoll;
-    this.airSpin = 0;
-    this.airRoll = 0;
-
-    const flips = Math.floor(Math.abs(spin) / TRICK_FULL_TURN);
-    const rolls = Math.floor(Math.abs(roll) / TRICK_FULL_TURN);
-    if (flips <= 0 && rolls <= 0) return;
-
-    const label = this.trickName(flips, spin > 0, rolls, roll > 0);
-    this.ctx.onTrick?.(label, flips * 260 + rolls * 220);
-  }
-
-  trickName(flips, forward, rolls, left) {
-    const flipWord = forward ? '前空翻' : '后空翻';
-    const rollWord = left ? '左侧翻' : '右侧翻';
-
-    if (flips > 0 && rolls > 0) {
-      const total = flips + rolls;
-      if (total >= 4) return '疯狂螺旋 ' + total + ' 连';
-      if (total >= 3) return '三段螺旋';
-      return '螺旋翻转';
-    }
-
-    if (flips >= 3) return flips + ' 连' + flipWord;
-    if (flips === 2) return '双' + flipWord;
-    if (flips === 1) return flipWord;
-
-    if (rolls >= 3) return rolls + ' 连' + rollWord;
-    if (rolls === 2) return '双' + rollWord;
-    return rollWord;
   }
 
   /**
@@ -755,6 +664,7 @@ export class Vehicle {
     const pieces = 6;
     for (let i = 0; i < pieces; i++) {
       const chunk = new THREE.Mesh(new THREE.BoxGeometry(sizeX, sizeY, sizeZ), mat);
+      chunk.userData.disposeOnRecycle = true;
       const pos = new THREE.Vector3(
         hitPoint.x + (Math.random() - 0.5) * sizeX * 2.4,
         hitPoint.y + (Math.random() - 0.5) * sizeY * 2.2 + sizeY * 0.5,
@@ -829,6 +739,7 @@ export class Vehicle {
   blastParts() {
     while (this.liveParts.length) {
       const part = this.liveParts.pop();
+      const localQuat = part.mesh.quaternion.clone();
 
       _v.copy(part.localPos);
       const worldPos = this.group.localToWorld(_v.clone());
@@ -842,13 +753,20 @@ export class Vehicle {
 
       this.debris.spawn(part.mesh, part.size, worldPos, _q, vel, null, 10);
       const idx = this.debris.items.length - 1;
-      this.debris.setHome(idx, this.group, part.localPos, part.mesh.quaternion.clone(), part.mesh.scale.clone());
+      this.debris.setHome(idx, this.group, part.localPos, localQuat, part.mesh.scale.clone());
     }
   }
 
-  syncVisual() {
-    this.group.position.copy(this.body.position);
-    this.group.quaternion.copy(this.body.quaternion);
+  syncVisual(interpolate = false) {
+    this.group.position.copy(interpolate ? this.body.interpolatedPosition : this.body.position);
+    this.group.quaternion.copy(interpolate ? this.body.interpolatedQuaternion : this.body.quaternion);
+    const spinActive = !!this.flight?.stunt;
+    const visual = this.flight?.visual;
+    const worldSpin = new THREE.Quaternion();
+    if (visual && spinActive) {
+      this.group.quaternion.multiply(visual);
+    }
+    if (interpolate || spinActive) worldSpin.copy(this.group.quaternion).multiply(new THREE.Quaternion().copy(this.body.quaternion).invert());
 
     for (let i = 0; i < 4; i++) {
       if (this.wheelDetached[i]) continue;
@@ -857,7 +775,17 @@ export class Vehicle {
       const wheel = this.built.wheels[i];
       wheel.position.set(t.position.x, t.position.y, t.position.z);
       wheel.quaternion.set(t.quaternion.x, t.quaternion.y, t.quaternion.z, t.quaternion.w);
+      if (interpolate || spinActive) {
+        wheel.position.sub(this.body.position).applyQuaternion(worldSpin).add(this.group.position);
+        wheel.quaternion.premultiply(worldSpin);
+      }
     }
+  }
+
+  resetInterpolation() {
+    const b = this.body;
+    b.previousPosition.copy(b.position); b.interpolatedPosition.copy(b.position);
+    b.previousQuaternion.copy(b.quaternion); b.interpolatedQuaternion.copy(b.quaternion);
   }
 
   get speedKmh() {
@@ -896,6 +824,8 @@ export class Vehicle {
     body.wakeUp();
 
     this.steerValue = 0;
+    this.drift?.reset();
+    this.resetInterpolation();
     this.syncVisual();
     return true;
   }
@@ -911,6 +841,8 @@ export class Vehicle {
    * 一键修复。不重新加载场景，只把车辆自身的物理、网格、零件、轮胎、血量全部还原。
    */
   reset(spawn) {
+    this.flight?.reset();
+    this.drift?.reset();
     const s = this.spec;
 
     // 高底盘车需要的离地高度更高，出生点给的 y 不够就抬到车自己的高度
@@ -918,11 +850,15 @@ export class Vehicle {
 
     this.body.position.set(spawn.pos[0], spawnY, spawn.pos[2]);
     this.body.quaternion.setFromEuler(0, THREE.MathUtils.degToRad(spawn.yaw || 0), 0);
+    this.resetInterpolation();
     this.body.velocity.set(0, 0, 0);
     this.body.angularVelocity.set(0, 0, 0);
     this.body.force.set(0, 0, 0);
     this.body.torque.set(0, 0, 0);
     this.body.wakeUp();
+
+    this.body.updateAABB();
+    this.ctx.world.broadphase.dirty = true;
 
     this.vehicleHealth = 1;
     this.engineHealth = 1;
@@ -951,6 +887,8 @@ export class Vehicle {
     // 四轮无条件还原：可能存在只损伤压扁、还没脱落的轮子
     for (let i = 0; i < 4; i++) {
       const w = this.vehicle.wheelInfos[i];
+      w.raycastResult.reset();
+      w.isInContact = false;
       w.suspensionStiffness = s.suspensionStiffness;
       w.maxSuspensionForce = s.maxSuspensionForce;
       w.frictionSlip = s.frictionSlip;
@@ -972,7 +910,18 @@ export class Vehicle {
 
   dispose() {
     this.debris.clear();
-    this.ctx.world.removeBody(this.body);
+    this.vehicle.removeFromWorld(this.ctx.world);
+    const geometries = new Set();
+    const materials = new Set();
+    for (const root of [this.group, ...this.built.wheels]) root.traverse(object => {
+      if (!object.isMesh) return;
+      geometries.add(object.geometry);
+      for (const material of Array.isArray(object.material) ? object.material : [object.material]) {
+        if (!isSharedMaterial(material)) materials.add(material);
+      }
+    });
+    for (const geometry of geometries) geometry.dispose();
+    for (const material of materials) material.dispose();
     this.ctx.scene.remove(this.group);
     for (const w of this.built.wheels) this.ctx.scene.remove(w);
   }

@@ -65,23 +65,7 @@ export class DebrisField {
   }
 
   recycleOldest() {
-    const item = this.items.shift();
-    if (!item) return;
-
-    this.ctx.world.removeBody(item.body);
-    const di = this.ctx.dynamics.findIndex((d) => d.body === item.body);
-    if (di >= 0) this.ctx.dynamics.splice(di, 1);
-
-    if (item.home.parent) {
-      this.ctx.scene.remove(item.mesh);
-      item.home.parent.add(item.mesh);
-      item.mesh.position.copy(item.home.localPos);
-      item.mesh.quaternion.copy(item.home.localQuat);
-      item.mesh.scale.copy(item.home.localScale);
-      item.mesh.visible = true;
-    } else {
-      this.ctx.scene.remove(item.mesh);
-    }
+    if (this.items.length) this.removeAt(0);
   }
 
   update() {
@@ -96,18 +80,21 @@ export class DebrisField {
 
   removeAt(i) {
     const item = this.items[i];
+    if (!item) return;
     this.items.splice(i, 1);
     this.ctx.world.removeBody(item.body);
     const di = this.ctx.dynamics.findIndex((d) => d.body === item.body);
     if (di >= 0) this.ctx.dynamics.splice(di, 1);
 
+    item.mesh.removeFromParent();
     if (item.home.parent) {
-      this.ctx.scene.remove(item.mesh);
       item.home.parent.add(item.mesh);
       item.mesh.position.copy(item.home.localPos);
       item.mesh.quaternion.copy(item.home.localQuat);
       item.mesh.scale.copy(item.home.localScale);
       item.mesh.visible = true;
+    } else if (item.mesh.userData.disposeOnRecycle) {
+      item.mesh.geometry.dispose();
     }
   }
 

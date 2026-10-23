@@ -5,9 +5,12 @@
  */
 const { chromium } = require('playwright-core');
 const { serve } = require('./static-server.cjs');
+const path = require('node:path');
+const fs = require('node:fs');
+const assert = require('node:assert/strict');
 
 const CHROME = 'C:\\Users\\46971\\.agent-browser\\browsers\\chrome-153.0.8010.52\\chrome.exe';
-const APK_ASSETS = 'C:\\Users\\46971\\AppData\\Local\\Temp\\releasecheck';
+const APK_ASSETS = path.resolve(process.argv[2] || '_verify/apk-web');
 
 (async () => {
   const server = await serve(APK_ASSETS, 8901);
@@ -58,9 +61,17 @@ const APK_ASSETS = 'C:\\Users\\46971\\AppData\\Local\\Temp\\releasecheck';
     damagePct: Math.round((1 - window.CrashLab.vehicle.vehicleHealth) * 100)
   }));
 
-  await page.screenshot({ path: 'C:\\Users\\46971\\Desktop\\WB1\\_verify\\release-apk-offline.png' });
+  fs.mkdirSync('_verify', { recursive: true });
+  await page.screenshot({ path: '_verify/release-apk-offline.png' });
 
-  console.log(JSON.stringify({ externalRequests: external.length, errors, spawned, ...state }, null, 2));
+  const result = { title: await page.title(), externalRequests: external.length, errors, spawned, ...state };
+  fs.writeFileSync('_verify/release-apk-offline.json', JSON.stringify(result, null, 2));
+  console.log(JSON.stringify(result, null, 2));
   await browser.close();
   server.close();
-})();
+  assert.match(result.title, /二代/);
+  assert.equal(external.length, 0);
+  assert.deepEqual(errors, []);
+  assert.equal(spawned, 'star');
+  assert.ok(state.speed > 0);
+})().catch(error => { console.error(error); process.exitCode = 1; });

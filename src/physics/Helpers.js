@@ -22,6 +22,14 @@ export function createBox(ctx, opts) {
   mesh.rotation.set(THREE.MathUtils.degToRad(rot[0]), THREE.MathUtils.degToRad(rot[1]), THREE.MathUtils.degToRad(rot[2]));
   mesh.castShadow = ctx.shadows && castShadow;
   mesh.receiveShadow = ctx.shadows;
+  if (!mass && size[1] <= 0.12) {
+    mesh.material = mesh.material.clone();
+    mesh.material.polygonOffset = true;
+    const layer = Math.max(1, Math.min(8, Math.ceil((pos[1] + size[1] / 2) * 30)));
+    mesh.material.polygonOffsetFactor = -layer;
+    mesh.material.polygonOffsetUnits = -layer;
+    mesh.renderOrder = layer;
+  }
   ctx.scene.add(mesh);
 
   const shape = new CANNON.Box(new CANNON.Vec3(size[0] / 2, size[1] / 2, size[2] / 2));

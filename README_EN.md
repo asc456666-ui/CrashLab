@@ -1,4 +1,8 @@
-# Crash Lab
+# Crash Lab 2
+
+Version 2.0.0 is named 碰撞实验场二代 on Android. [Download the APK](https://github.com/asc456666-ui/CrashLab/releases/download/v2.0.0/CrashLab2-v2.0.0.apk). It adds the expanded open world, two islands, randomized traffic and animal behaviors, revised flight controls, and the handling and rendering fixes. See [v2 release notes](docs/RELEASE_V2.md).
+
+The second generation uses application ID `com.crashlab.game2` and a new locally retained release key, so it installs alongside v1 instead of replacing it. Existing v1 data is preserved.
 
 English | [简体中文](README.md)
 

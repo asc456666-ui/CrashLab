@@ -8,12 +8,13 @@
   <meta name="mobile-web-app-capable" content="yes" />
   <link rel="manifest" href="./manifest.webmanifest" />
   <link rel="icon" type="image/svg+xml" href="./icon.svg" />
-  <title>Crash Lab 碰撞实验场</title>
+  <title>碰撞实验场二代</title>
   <link rel="stylesheet" href="./src/style.css" />
 </head>
 <body>
   <div id="stage">
     <canvas id="scene"></canvas>
+    <div id="flightFX"><span id="flightStatus"></span></div>
 
     <!-- HUD -->
     <div id="hud" class="hidden">
@@ -33,11 +34,12 @@
     <div id="banner"></div>
 
     <!-- 腾空时的特技操作提示 -->
-    <div id="airhint" class="air-hint">油门 前空翻 · 刹车 后空翻 · 方向键 横向翻转</div>
+    <div id="airhint" class="air-hint">快速点两下油门 · 自动施展空中特技</div>
 
     <!-- 屏幕控制 -->
     <div id="controls" class="hidden">
       <div class="pad pad-action">
+        <button class="btn world-action hidden" id="worldAction">互动</button>
         <button class="btn round fire hide" id="btnFire" data-tap="fire">开炮</button>
       </div>
       <div class="pad pad-left">
@@ -54,6 +56,7 @@
     <!-- 右上角功能键 -->
     <div id="tools" class="hidden">
       <button class="btn round primary" data-tap="flip">翻正</button>
+      <button class="btn round map-tool" data-tap="map">地图</button>
       <button class="btn round" data-tap="camera">视角</button>
       <button class="btn round" data-tap="slowmo">慢放</button>
       <button class="btn round" data-tap="heavy">落锤</button>
@@ -64,14 +67,15 @@
     <!-- 主菜单 -->
     <div id="menu" class="overlay">
       <div class="panel">
-        <h1 class="logo">CRASH<span>LAB</span></h1>
-        <p class="sub">碰撞实验场</p>
+        <h1 class="logo">CRASH<span>LAB Ⅱ</span></h1>
+        <p class="sub">碰撞实验场二代 · 开放驾驶游乐世界</p>
         <button class="btn wide primary" data-nav="play">开始游戏</button>
         <button class="btn wide" data-nav="garage">车辆选择</button>
         <button class="btn wide" data-nav="settings">设置</button>
         <button class="btn wide ghost" data-nav="quit">退出</button>
         <p class="tip">电脑用 W A S D 驾驶，空格手刹，F 翻正，C 切视角，T 慢放，R 重置，H 落锤</p>
-        <p class="tip">腾空时按住油门做前空翻，按刹车做后空翻，方向键做侧翻，落地结算特技分</p>
+        <p class="tip">冲上飞坡高高跃起！快速点两下油门，自动施展空中特技</p>
+        <p class="tip">M 地图 · E 互动 / 维修 · 高速左门到生物岛，右门到工地岛</p>
       </div>
     </div>
 
@@ -154,6 +158,13 @@
             <button data-s="9">车库</button>
             <button data-s="10">山林</button>
             <button data-s="11">城市</button>
+            <button data-s="12">云顶山地</button>
+            <button data-s="13">浅湾湿地</button>
+            <button data-s="14">采石工地</button>
+            <button data-s="15">集装箱港口</button>
+            <button data-s="16">天空停车楼</button>
+            <button data-s="17">机械游乐谷</button>
+            <button data-s="18">滨海高速</button>
           </div>
         </div>
         <div class="setting">

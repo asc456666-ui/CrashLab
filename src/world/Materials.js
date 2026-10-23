@@ -141,6 +141,11 @@ export function mat(key, factory) {
   return cache.get(key);
 }
 
+export function isSharedMaterial(material) {
+  for (const shared of cache.values()) if (shared === material) return true;
+  return false;
+}
+
 export const Materials = {
   asphalt: () => mat('asphalt', () => new THREE.MeshStandardMaterial({ map: asphaltTexture(60), roughness: 0.95, metalness: 0.02 })),
   concrete: () => mat('concrete', () => new THREE.MeshStandardMaterial({ map: concreteTexture(6), roughness: 0.9, metalness: 0.03 })),

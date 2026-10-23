@@ -1,4 +1,4 @@
-const CACHE = 'crashlab-v1';
+const CACHE = 'crashlab-drift-handling-v5';
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
@@ -19,6 +19,16 @@ self.addEventListener('activate', (event) => {
 
 self.addEventListener('fetch', (event) => {
   if (event.request.method !== 'GET') return;
+  if (event.request.mode === 'navigate') {
+    event.respondWith(fetch(event.request).then((res) => {
+      if (res.status === 200) {
+        const copy = res.clone();
+        caches.open(CACHE).then(cache => cache.put(event.request, copy));
+      }
+      return res;
+    }).catch(async () => (await caches.match(event.request)) || caches.match('./index.html')));
+    return;
+  }
 
   event.respondWith(
     caches.match(event.request).then((cached) => {

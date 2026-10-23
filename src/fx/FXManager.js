@@ -189,6 +189,29 @@ export class FXManager {
     );
 
     this.blastRing = new BlastRing(this.scene);
+    this.landingRing = new BlastRing(this.scene);
+    this.landingRing.mat.color.setHex(0x8cebd9);
+    this.flightPool = new ObjectPool(
+      () => new Burst(this.scene, 12, sparkTex, 0.26, 0x8affec, THREE.AdditiveBlending),
+      b => { b.life = 0; b.points.visible = false; b.mat.opacity = 0; }, 20
+    );
+  }
+
+  flightTrail(point, style) {
+    const burst = this.flightPool.spawn();
+    if (!burst) return;
+    burst.mat.color.setHex(style === 'spiral' ? 0xc6a2ff : style === 'boost' ? 0xffdb86 : 0x8affec);
+    burst.fire(point, 0.8, 0.1, 1.8, 0.4);
+  }
+
+  flightBurst(point) {
+    const burst = this.flightPool.spawn();
+    if (burst) { burst.mat.color.setHex(0x99f9ef); burst.fire(point, 2, 0.4, 8, 0.7); }
+  }
+
+  landing(point, height) {
+    this.landingRing.fire(point.clone().add(new THREE.Vector3(0, -0.7, 0)));
+    if (height > 10) this.sparks(point, Math.min(30, height));
   }
 
   sparks(point, impact) {
@@ -252,6 +275,8 @@ export class FXManager {
   }
 
   update(dt) {
+    for (const burst of this.flightPool.active.slice()) if (!burst.update(dt, 0)) this.flightPool.recycle(burst);
+    this.landingRing.update(dt);
     for (const b of this.sparkPool.active.slice()) {
       if (!b.update(dt, -6)) this.sparkPool.recycle(b);
     }
@@ -268,6 +293,8 @@ export class FXManager {
   }
 
   clear() {
+    this.flightPool.clear();
+    this.landingRing.reset();
     this.sparkPool.clear();
     this.smokePool.clear();
     this.flamePool.clear();

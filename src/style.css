@@ -118,6 +118,59 @@ html, body {
   pointer-events: auto;
 }
 
+.map-tool { background: #367f78; }
+.world-action { max-width: 280px; padding: 12px 16px; font-size: 13px; background: #286e67; border: 1px solid #91cfb7; }
+.pad-action { align-items: center; }
+.mini-world { position: absolute; top: 12px; right: 150px; width: 132px; padding: 8px; border: 1px solid #a7c8b544; border-radius: 14px; background: #102a2de6; text-align: center; }
+.mini-region { display: block; font-size: 12px; font-weight: 700; margin-bottom: 5px; }
+.mini-progress { display: block; font-size: 10px; color: #b5dfc7; margin-top: 4px; }
+.mini-drawing svg { display: block; width: 100%; border-radius: 8px; }
+#worldMap { background: #0c2025ef; z-index: 25; }
+#pinpad { z-index: 40; }
+.world-map-panel { width: min(1000px, 96vw); max-height: 96vh; overflow: auto; padding: 20px 24px; border: 1px solid #d6ebd22e; border-radius: 24px; background: #152f32; box-shadow: 0 30px 100px #0006; }
+.world-map-panel header { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 14px; }
+.world-map-panel h2 { margin: 0; font-size: 26px; letter-spacing: 1px; }
+.map-eyebrow { color: #a3c9ac; font-size: 11px; letter-spacing: 3px; margin: 0 0 5px; }
+.map-close { padding: 11px 15px; white-space: nowrap; }
+.world-map-layout { display: grid; grid-template-columns: 1.1fr 1fr; gap: 20px; }
+.world-map-drawing svg { display: block; width: 100%; max-height: 64vh; border-radius: 16px; }
+.map-help { color: #b5cdc7; font-size: 12px; line-height: 1.6; margin: 0 0 12px; }
+.destination-list { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.destination { position: relative; padding: 12px 10px; min-height: 87px; border: 1px solid #d4eddf22; border-left: 3px solid var(--region-color); border-radius: 9px; background: #ffffff07; color: #f3f7ef; text-align: left; font-family: inherit; cursor: pointer; }
+.destination:hover, .destination:focus-visible { background: #ffffff15; outline: 1px solid var(--region-color); }
+.destination strong { display: block; font-size: 13px; }
+.destination small { display: block; color: #bbd0c8; font-size: 10px; margin-top: 5px; line-height: 1.4; }
+.destination span { display: block; color: var(--region-color); font-size: 11px; margin-top: 7px; }
+.world-map-panel footer { display: flex; justify-content: space-between; gap: 12px; padding-top: 12px; color: #a4beb4; font-size: 11px; }
+.map-progress { color: #d8edc4; }
+.destination:disabled { opacity: .5; cursor: default; }
+#flightFX { position: absolute; inset: 0; opacity: 0; pointer-events: none; transition: opacity .3s; background: linear-gradient(90deg, #9ef6f520, transparent 15%, transparent 85%, #9ef6f520); }
+#flightFX.on { opacity: 1; }
+#flightFX.drifting { background: none; }
+#flightFX.drifting::before, #flightFX.drifting::after { display: none; }
+#flightFX::before, #flightFX::after { content: ''; position: absolute; top: 15%; bottom: 20%; width: 12%; background: repeating-linear-gradient(168deg, transparent 0 38px, #d5ffff60 40px 42px, transparent 45px 90px); animation: flightWind .45s linear infinite; }
+#flightFX::before { left: 0; } #flightFX::after { right: 0; transform: scaleX(-1); }
+#flightStatus { position: absolute; top: 12%; left: 50%; transform: translateX(-50%); padding: 9px 18px; border-radius: 18px; background: #183943b8; color: #cafff5; font-size: 14px; font-weight: 800; white-space: nowrap; }
+@keyframes flightWind { to { background-position: 90px 90px; } }
+.msg-line { left: 50%; right: auto; bottom: calc(max(18px, env(safe-area-inset-bottom)) + 105px); transform: translateX(-50%); max-width: min(80vw, 650px); white-space: normal; text-align: center; }
+.reset-buildings { font-size: 11px; padding: 6px 10px; white-space: nowrap; }
+.world-map-panel footer { align-items: center; flex-wrap: wrap; }
+@media (max-height: 540px) and (orientation: landscape) {
+  .world-map-panel { padding: 12px 18px; }
+  .world-map-panel h2 { font-size: 20px; }
+  .world-map-panel header { margin-bottom: 8px; }
+  .destination { min-height: 68px; padding: 7px 9px; }
+  .destination span { margin-top: 4px; }
+  .map-help { margin-bottom: 6px; font-size: 11px; }
+  .world-map-layout { gap: 12px; grid-template-columns: 0.75fr 1.25fr; }
+  .destination-list { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; }
+  .destination strong { font-size: 12px; } .destination small { font-size: 10px; }
+  .mini-world { width: 105px; padding: 6px; }
+  #tools { gap: 5px; grid-template-columns: repeat(2, 48px); }
+  #tools .btn { width: 48px; height: 48px; font-size: 12px; }
+  .mini-world { right: 125px; }
+}
+
 /* ---------- 家长密码盘 ---------- */
 .pin-panel { max-width: 360px; text-align: center; }
 .pin-panel h2 { margin: 0 0 4px; }
