@@ -1,6 +1,6 @@
 # Crash Lab 2
 
-Version 2.0.0 is named 碰撞实验场二代 on Android. [Download the APK](https://github.com/asc456666-ui/CrashLab/releases/download/v2.0.0/CrashLab2-v2.0.0.apk). It adds the expanded open world, two islands, randomized traffic and animal behaviors, revised flight controls, and the handling and rendering fixes. See [v2 release notes](docs/RELEASE_V2.md).
+Source version 2.0.0 is named 碰撞实验场二代 on Android. Its signed APK was built locally and delivered through WeChat File Transfer; the v2 binary has not yet been attached to GitHub Releases, which still contains the legacy v1 package. This version adds the expanded open world, two islands, randomized traffic and animal behaviors, revised flight controls, and the handling and rendering fixes. See [v2 release notes](docs/RELEASE_V2.md).
 
 The second generation uses application ID `com.crashlab.game2` and a new locally retained release key, so it installs alongside v1 instead of replacing it. Existing v1 data is preserved.
 
@@ -35,7 +35,7 @@ The feel is inspired by crash-sandbox games, but the underlying model is rigid-b
 
 Download CrashLab-release.apk from https://github.com/asc456666-ui/CrashLab/releases, copy it to your phone, tap it in a file manager and allow installation from unknown sources. It works with the network off.
 
-Current release is v1.0.0, 3424332 bytes, SHA256 `43bb77ecf6adcd6160b27cac847941db50a3fcd72f519fc602ced84ef3c4d`. Verify after downloading:
+The legacy first-generation release is v1.0.0, 3424332 bytes, SHA256 `43bb77ecf6adcd6160b27cac847941db50a3fcd72f519fc602ced84ef3c4d`. Verify after downloading:
 
 ```powershell
 Get-FileHash CrashLab-release.apk -Algorithm SHA256

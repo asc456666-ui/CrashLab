@@ -12,7 +12,7 @@
 
 ## 结论先行
 
-- 交付形态：CrashLab-release.apk，Capacitor 封装，游戏本体随包内置，装完即玩
+- 交付形态：CrashLab2-v2.0.0.apk，Capacitor 封装，游戏本体随包内置，装完即玩
 - 技术栈：Three.js 渲染，cannon-es 物理，Vite 打包，Capacitor 生成 Android 原生壳
 - 完全离线：不申请任何 Android 权限，连 INTERNET 都没有，所有资源随 APK 内置
 - 强制横屏、沉浸全屏，返回键优先回主菜单，已在主菜单才退出
@@ -49,9 +49,11 @@
 
 ### 玩安卓版
 
-到 https://github.com/asc456666-ui/CrashLab/releases 下载 CrashLab-release.apk，传到手机，文件管理器点开安装，允许安装未知来源即可。装完断网也能玩。
+本次二代安装包已通过微信文件传输助手交付，在手机上保存 APK 后使用文件管理器打开安装，装完断网也能玩。GitHub Releases 的旧一代包仅供历史版本使用。
 
-当前版本 **v2.0.0 · 碰撞实验场二代**：[下载 APK](https://github.com/asc456666-ui/CrashLab/releases/download/v2.0.0/CrashLab2-v2.0.0.apk)。文件大小 3449780 字节，SHA256 为 `db4773f72827e3ae9b8940b2700a0c651a10c7d25f9daa015b7bd67c00e3915d`。
+当前源码版本 **v2.0.0 · 碰撞实验场二代**。正式签名 APK 已构建，并通过微信文件传输助手交付；本地文件为 `release/CrashLab2-v2.0.0.apk`。GitHub Releases 目前仍是旧的一代安装包，二代下载附件尚未上架，请勿将一代包当作二代下载。
+
+二代文件大小 3449780 字节，SHA256 为 `db4773f72827e3ae9b8940b2700a0c651a10c7d25f9daa015b7bd67c00e3915d`。
 
 二代使用独立应用标识，可与一代同时安装。原版发布私钥未在本次环境找到，不能直接覆盖一代；无需卸载一代，其本地数据保留。二代的发布签名保存在本机且不上传仓库。
 
